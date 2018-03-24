@@ -1,0 +1,21 @@
+html {
+    overflow-y: scroll;
+}
+
+body {
+    max-width: 60em;
+    margin: auto;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    display: inline-block;
+    justify-content: space-around;
+    margin-right: 10%;
+
+}
+.menu{
+    text-align: center;
+}
+
