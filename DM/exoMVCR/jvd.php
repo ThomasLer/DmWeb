@@ -14,10 +14,10 @@ require_once("Router.php");
  * et de lancer son main.
  */
 
-const USERNAME = "root";
-const PASSWORD = "";
-const HOST = "localhost";
-const DB = "dmweb";
+const USERNAME = "21402838";
+const PASSWORD = "Aiqu1IeVaeT8EC2b";
+const HOST = "mysql.info.unicaen.fr";
+const DB = "21402838_dev";
 
 $username = USERNAME;
 $password = PASSWORD;
