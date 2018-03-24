@@ -20,7 +20,7 @@ DEFINE("PASSWORD","");
 DEFINE("HOST","localhost");
 DEFINE("DB","dmweb");
 
-$connection= new PDO("mysql:dbname=DB =;host=HOST", USERNAME, PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+$connection= new PDO("mysql:dbname=".DB.";host=".HOST, USERNAME, PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 
 
 $JVDStorage = new JVDStorageMySQL ($connection);

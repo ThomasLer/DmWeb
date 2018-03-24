@@ -7,7 +7,6 @@ require_once("model/JVDStorage.php");
 require_once("model/JVDBuilder.php");
 require_once("model/JVDStorageMySQL.php");
 require_once("model/AccountStorage.php");
-require_once("model/AccountStorageStub.php");
 require_once("model/AccountStorageMySQL.php");
 require_once("model/Account.php");
 

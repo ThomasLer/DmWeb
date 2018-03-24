@@ -8,7 +8,8 @@ class View
 
     protected $router;
 
-    protected $menu;
+    protected $menuLeft;
+    protected $menuRight;
 
     protected $feedback;
 
@@ -17,23 +18,27 @@ class View
         $this->router = $router;
         $this->title = "Accueil";
         $this->content = null;
-        $this->menu = array(
-            "nouveau" => "<a href='jvd.php?action=nouveau'>Ajouter un JVD</a>",
-            "accueil" => "<a href='jvd.php'>Accueil</a>",
-            "liste" => "<a href='jvd.php?liste'>Liste</a>",
-            "connexion" => "<a href='jvd.php?connexion'>Connexion</a>"
+        $this->menuLeft = array(
+            "accueil" => array("jvd.php","Accueil"),
+            "nouveau" => array("jvd.php?action=nouveau","Ajouter un JVD"),
+            "liste" => array("jvd.php?liste","Liste")
+        );
+        $this->menuRight = array(
+            "connexion" => array("jvd.php?connexion","Connexion")
         );
         $this->feedback = $feedback;
     }
 
     public function afficheMenu()
     {
-        echo "<nav class='menu'>";
-        foreach ($this->menu as $key => $lien) {
-            echo "<ul>$lien </ul>";
+        foreach ($this->menuLeft as $key => $lien) {
+            echo "<a href='".$lien[0]."' class='item'>".$lien[1]."</a>";
         }
-        echo "</nav>";
-
+        echo "<div class='right menu'>";
+        foreach ($this->menuRight as $key => $lien) {
+            echo "<a href='".$lien[0]."' class='item'>".$lien[1]."</a>";
+        }
+        echo "</div>";
     }
 
 
@@ -222,20 +227,29 @@ class View
         <head>
             <title><?php echo $this->title; ?></title>
             <meta charset="UTF-8"/>
-            <link rel="stylesheet" href="skin/screen.css"/>
-
+            <link rel="stylesheet" type="text/css" href="skin/semantic.min.css">
         </head>
         <body>
-
-        <?php $this->afficheMenu(); ?>
-        <h6 class="feedback"><?php echo $this->feedback ?></h6>
-        <main>
-            <h1><?php echo $this->title; ?></h1>
-            <?php
-            echo $this->content;
-            ?>
-        </main>
+            <div class="ui menu">
+                <div class="ui container">
+                    <?php $this->afficheMenu(); ?>
+                </div>
+            </div>
+            <div class="ui text container">
+                <h6 class="feedback"><?php echo $this->feedback ?></h6>
+                <main>
+                    <h1><?php echo $this->title; ?></h1>
+                    <?php
+                    echo $this->content;
+                    ?>
+                </main>
+            </div>
         </body>
+        <script
+                src="https://code.jquery.com/jquery-3.1.1.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+                crossorigin="anonymous"></script>
+        <script src="skin/semantic.min.js"></script>
         </html>
 
         <?php
