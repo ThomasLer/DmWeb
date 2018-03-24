@@ -1,4 +1,5 @@
 <?php
+
 /*
  * On indique que les chemins des fichiers qu'on inclut
  * seront relatifs au répertoire src.
@@ -14,20 +15,15 @@ require_once("Router.php");
  * et de lancer son main.
  */
 
-const USERNAME = "21402838";
-const PASSWORD = "Aiqu1IeVaeT8EC2b";
-const HOST = "mysql.info.unicaen.fr";
-const DB = "21402838_dev";
+DEFINE("USERNAME","root");
+DEFINE("PASSWORD","");
+DEFINE("HOST","localhost");
+DEFINE("DB","dmweb");
 
-$username = USERNAME;
-$password = PASSWORD;
-$host = HOST;
-$db = DB;
-$connection= new PDO("mysql:dbname=$db;host=$host", $username, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
+$connection= new PDO("mysql:dbname=DB =;host=HOST", USERNAME, PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'));
 
 
 $JVDStorage = new JVDStorageMySQL ($connection);
 $AccountStorage= new AccountStorageMySQL($connection);
 $router = new Router();
 $router->main($JVDStorage,$AccountStorage);
-?>
