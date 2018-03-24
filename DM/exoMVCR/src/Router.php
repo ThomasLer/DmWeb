@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once("view/View.php");
 require_once("view/PrivateView.php");
 require_once("control/Controller.php");
@@ -22,7 +24,6 @@ class Router
 
     public function main(JVDStorage $JVDStorage, AccountStorageMySQL $accountStorageMySQL)
     {
-        session_start();
 
         $etatCo = null;
         if (key_exists('user', $_SESSION)) {
@@ -102,6 +103,7 @@ class Router
     public function POSTredirect($url, $feedback)
     {
         //$_SESSION['feedback'] = $feedback;
-        header("Location: " . $url, true, 303);
+        header("Location: ".htmlspecialchars_decode($url), true, 303);
+        die;
     }
 }
