@@ -38,15 +38,24 @@ class PrivateView extends View
 
     public function makeListPage(array $tabJVD)
     {
-        $this->title = 'JVD disponibles à la consultation';
+        $this->title = 'Liste des jeux vidéos';
+        $this->content = "<div class='ui list'>";
         foreach ($tabJVD as $key => $JVD) {
             $nomJVD = $JVD->getNom();
             $idJVD = $JVD->getId();
-            $this->content .= "<a href='" . $this->router->getJVDURL($idJVD) . "'><h5>" . $nomJVD . "</h5></a>
-            <a href='" . $this->router->getJVDSupp($idJVD) . "'><h5>X</h5></a>
-            <a href='" . $this->router->getJVDmodif($idJVD) . "'><h5>...</h5></a>";
+            $photoJVD = $JVD->getPhoto();
+            $genreJVD = $JVD->getGenre();
+            $this->content .= "<div class=\"item\">
+                                <img class=\"ui avatar image\" src=\"$photoJVD\">
+                                <div class=\"content\">
+                                    <a class=\"header\" href='" . $this->router->getJVDURL($idJVD) . "'>".$nomJVD."</a>
+                                    <div class=\"description\">$genreJVD</div>
+                                </div>
+                                <a href='".$this->router->getJVDSupp($idJVD) . "'><i class=\"small trash middle icon red\"></i></a>
+                                <a href='".$this->router->getJVDmodif($idJVD) . "'><i class=\"small edit middle icon blue\"></i></a>
+                              </div>";
         }
-
+        $this->content .= "</div>";
     }
 
     public function makeModifJvdPage(JVD $jvd){
