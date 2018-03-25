@@ -61,7 +61,7 @@ class PrivateView extends View
             <input type='file' name='" . JVDBuilder::PHOTO_REF . "' id='" . JVDBuilder::PHOTO_REF . "'/>
             <input type='hidden' name='id' value='".$jvd->getId()."'>
 
-            <br><br><button type='submit'>Ajouter</button>
+            <br><br><button type='submit'>Modifier</button>
         </form>";
     }
 }

@@ -50,7 +50,7 @@ class Router
             } elseif ($_GET['action'] == 'sauverNouveau') {
                 $unController->saveNewJVD($_POST);
             } elseif ($_GET['action'] == 'sauverModif') {
-                $unController->
+                $unController->sauverModif($_POST);
             }
 
         } elseif (key_exists('action', $_GET) && $etatCo !== 1) {

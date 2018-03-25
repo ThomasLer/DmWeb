@@ -66,7 +66,15 @@ class JVDStorageMySQL implements JVDStorage
         ));
     }
 
-    public function modification($id){
+    public function modification(JVD $a,$id){
+        $req = $this->connection->prepare("UPDATE jvd SET nom=:nom,genre=:genre,annee_sortie=:annee_sortie,photo=:photo WHERE id=:id");
+        $req->execute(array(
+            "nom"=>$a->getNom(),
+            "genre"=>$a->getGenre(),
+            "annee_sortie"=>$a->getAnneeSortie(),
+            "photo"=>$a->getPhoto(),
+            "id"=>$id
+        ));
 
     }
 }
