@@ -227,7 +227,7 @@ class View
                                 <div class='field'>
                                     <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $data[JVDBuilder::ANNEE_SORTIE_REF] . "' min='1950' required/>
                                 </div>
-                                <img src='' id='previsualisation' width='100%'>
+                                <img src='' id='previsualisation' style='max-height: 300px'>
                                 <div class='field'>
                                     <label for='file' class='ui icon button'>
                                         <i class='file icon'></i>
