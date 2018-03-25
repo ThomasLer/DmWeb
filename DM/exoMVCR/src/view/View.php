@@ -240,7 +240,7 @@ class View
         if($connexion)
             $this->router->POSTredirect("jvd.php", "Connexion effectuée", 1);
         else
-            $this->router->POSTredirect("jvd.php", "Déconnexion effectuée", 0);
+            $this->router->POSTredirect("jvd.php", "Déconnexion effectuée", 1);
     }
 
     public function makeErreurAjoutJVDPage()
