@@ -24,7 +24,8 @@ class View
             "liste" => array("jvd.php?liste","Liste")
         );
         $this->menuRight = array(
-            "connexion" => array("jvd.php?connexion","Connexion")
+            "connexion" => array("jvd.php?connexion","Connexion"),
+            "inscription" => array("jvd.php?nvCompte","Inscription")
         );
         $this->feedback = $feedback;
     }
@@ -134,12 +135,12 @@ class View
                     <form class='ui large form' method='post' action='" . ($_SERVER['PHP_SELF']) . "'>
                       <div class='ui stacked segment'>
                         <div class='field'>
-                            <input name='Nom' placeholder='Pseudo' type='text'>
+                            <input name='Nom' placeholder='Pseudo' required type='text'>
                         </div>
                         <div class='field'>
-                            <input name='pass' placeholder='Mot de passe' type='password'>
+                            <input name='pass' placeholder='Mot de passe' required type='password'>
                         </div>
-                        <button class='ui fluid large teal submit button' type='submit'>Submit</button>
+                        <button class='ui fluid large teal submit button' type='submit'>Se connecter</button>
                       </div>                               
                     </form>
                 
@@ -152,31 +153,31 @@ class View
 
     public function makeCreateAccountFormPage()
     {
-        $this->title = " Créer un nouveau Compte";
+        $this->title = " Inscription";
         $this->content =
             "
-                <form method=\"post\" action='" . ($_SERVER['PHP_SELF']) . "'>
-                    <table>
-                    <tr>
-                    <td>
-                        <label for=\"pseudoCmp\">Votre nom de compte:</label>
-                        <input type=\"text\" name=\"pseudoCmp\" id=\"pseudoCmp\" required/><br>
-                    </td>
-                    <td>
-                        <label for=\"passCmp\">Votre mot de passe :</label>
-                        <input type=\"password\" name=\"passCmp\" id=\"passCmp\" required/><br>
-                    </td>
-                    <td>
-                        <label for=\"nomCmp\">Votre nom (visible par les autres utilisateurs) :</label>
-                        <input type=\"text\" name=\"nomCmp\" id=\"nomCmp\" required/><br>
-                    </td>
-
-                    <td>
-                        <input type=\"submit\" value=\"Créer votre compte\">
-                    </td>
-                    </tr>
-                    </table>
-                </form>";
+                <div class='ui middle aligned center aligned grid'>
+                  <div class='column'>
+                    <form class='ui large form' method='post' action='" . ($_SERVER['PHP_SELF']) . "'>
+                      <div class='ui stacked segment'>
+                        <div class='field'>
+                            <input name='nomCmp' placeholder='Nom (visible par les autres utilisateurs)' required type='text'>
+                        </div>
+                        <div class='field'>
+                            <input name='pseudoCmp' placeholder='Pseudo' required type='text'>
+                        </div>
+                        <div class='field'>
+                            <input name='passCmp' placeholder='Mot de passe' required type='password'>
+                        </div>
+                        <button class='ui fluid large teal submit button' type='submit'>S'inscrire</button>
+                      </div>                               
+                    </form>
+                
+                    <div class='ui message'>
+                      Déja inscrit ? <a href='jvd.php?connexion'>Se connecter</a>
+                    </div>
+                  </div>
+                </div>";
 
     }
 

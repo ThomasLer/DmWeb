@@ -26,15 +26,17 @@ class Router
 
         session_start();
 
+        $feedback = key_exists('feedback', $_SESSION) ? $_SESSION['feedback'] : '';
+        $_SESSION['feedback'] = '';
+
         $etatCo = null;
         if (key_exists('user', $_SESSION)) {
             $etatCo = 1;
         }
-        $_SESSION['feedback'] = "";
         if ($etatCo !== 1) {
-            $uneVue = new View($this, $_SESSION['feedback']);
+            $uneVue = new View($this, $feedback);
         } else {
-            $uneVue = new PrivateView($this, $_SESSION['feedback'], $_SESSION['user']);
+            $uneVue = new PrivateView($this, $feedback, $_SESSION['user']);
         }
 
         $unController = new Controller($uneVue, $JVDStorage, $accountStorageMySQL);
@@ -50,8 +52,8 @@ class Router
             }
         } elseif (key_exists('connexion', $_GET)) {
             $unController->gestionConnexionDeconnexion();
-        } elseif (key_exists('nvCompte', $_GET)) {
-            $unController->newCompte($_POST);
+        } elseif (key_exists('nvCompte', $_GET) and !key_exists('user', $_SESSION)) {
+            $unController->newCompte();
         } elseif (key_exists(('suppId'), $_GET) && $etatCo == 1) {
             $unController->suppJVD($_GET['suppId']);
         } else {
@@ -100,8 +102,8 @@ class Router
 
     public function POSTredirect($url, $feedback)
     {
-        //$_SESSION['feedback'] = $feedback;
+        $_SESSION['feedback'] = $feedback;
+        session_write_close();
         header("Location: ".htmlspecialchars_decode($url), true, 303);
-        die;
     }
 }
