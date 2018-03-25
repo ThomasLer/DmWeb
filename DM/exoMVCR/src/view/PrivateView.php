@@ -32,8 +32,8 @@ class PrivateView extends View
     }
 
     public function pageAccueil(){
-        $this->title="Bonjour Monsieur ".$this->account->getNom();
-        $this->content="vous êtes ".$this->account->getStatut();
+        $this->title="Bonjour ".$this->account->getNom();
+        $this->content="Vous êtes connecté en tant que : ".ucfirst($this->account->getStatut());
     }
 
     public function makeListPage(array $tabJVD)

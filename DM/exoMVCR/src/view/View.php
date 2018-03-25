@@ -182,11 +182,11 @@ class View
 
     public function makeDeconnexionPage()
     {
-        $this->title = " Deconexion";
+        $this->title = " Déconnexion";
         $this->content = "
-                <p>Vous êtes connecté en tant que " . $_SESSION['user']->getNom() . ", vous êtes sur le point de vous déconnecter</p>
+                <p>Vous êtes connecté en tant que " . $_SESSION['user']->getNom() . ", vous êtes sur le point de vous déconnecter.</p>
                 <form method='post' action='" . ($_SERVER['PHP_SELF']) . "'>
-                        <input type='submit' value='déconnexion' name='deconnexion'>
+                        <input type='submit' value='Se déconnecter' name='deconnexion'>
                 </form>";
 
     }
