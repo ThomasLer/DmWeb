@@ -49,37 +49,21 @@ class JVDBuilder
     }
 
     public function createJVD(){
-
-        if (key_exists(self::NOM_REF, $this->data) && key_exists(self::GENRE_REF, $this->data) && (key_exists(self::ANNEE_SORTIE_REF, $this->data))) {
-            if($this->isValid()){
-                $nvJVD = new JVD(null,$this->data[self::NOM_REF], $this->data[self::GENRE_REF], $this->data[self::ANNEE_SORTIE_REF]);
-                return $nvJVD;
-            }
-            else{
-                return null;
-
-            }
-        }
+        return new JVD(null,$this->data[self::NOM_REF], $this->data[self::GENRE_REF], $this->data[self::ANNEE_SORTIE_REF]);
     }
 
     public function isValid(){
-        $drap=true;
-        if(empty($this->data[self::NOM_REF])){
-            $this->error = $this->error."Saisir un nom. ";
-            $drap=false;
+        if (empty($this->data[$this::NOM_REF]) or empty($this->data[$this::GENRE_REF]) or $this->data[$this::ANNEE_SORTIE_REF] < 1950) {
+            $error = "";
+            if (empty($this->data[$this::NOM_REF]))
+                $error .= "Nom manquant !";
+            if (empty($this->data[$this::GENRE_REF]))
+                $error .= "Genre manquant !";
+            if (isset($this->data[$this::ANNEE_SORTIE_REF]) and $this->data[$this::ANNEE_SORTIE_REF] < 1950)
+                $error .= "L'année de sortie ne peut pas être inférieur a < 1950 !";
+            $this->error = $error;
+            return false;
         }
-        if(empty($this->data[self::GENRE_REF])){
-            $this->error = $this->error."Saisir une espece. ";
-            $drap=false;
-
-        }
-        if($this->data[self::ANNEE_SORTIE_REF]<1950){
-            $this->error = $this->error."L'année doit être suppérieur à 1950. ";
-            $drap=false;
-        }
-        return $drap;
+        return true;
     }
-
-
-
 }

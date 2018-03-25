@@ -29,19 +29,15 @@ class Controller
 
     public function saveNewJVD(array $data)
     {
-
         $JVDBuilder = new JVDBuilder($data);
-        $JVDSave = $JVDBuilder->createJVD();
-        if ($JVDSave !== null) {
-            $id = $this->JVDStorage->create($JVDSave);
-            $this->view->displayJVDCreationSuccess($id);
-            unset($_SESSION['currentNewJVD']);
-        } else {
-            $this->view->displayJVDCreationFailure();
+        if(!$JVDBuilder->isValid()) {
             $_SESSION['currentNewJVD'] = $JVDBuilder;
-
+            $this->view->displayJVDCreationFailure();
+        } else {
+            unset($_SESSION['currentNewAnimal']);
+            $id = $this->JVDStorage->create($JVDBuilder->createJVD());
+            $this->view->displayJVDCreationSuccess($id);
         }
-        //$this->showList();
     }
 
     public function newJVD()

@@ -201,23 +201,24 @@ class View
         $data = $JVDBuilder->getData();
 
         $this->title = "Ajouter un JVD";
-        if (key_exists(JVDBuilder::NOM_REF, $data) && key_exists(JVDBuilder::GENRE_REF, $data) && key_exists(JVDBuilder::ANNEE_SORTIE_REF, $data)) {
-            $this->content = "<p> erreur :" . $JVDBuilder->getError() . "</p>
-        <form action='" . $this->router->getJVDSaveURL() . "'enctype=\"multipart/form-data\" method='post'>
+        $this->content = "";
+        if ($JVDBuilder->getError())
+            $this->content .= "<div class='ui compact red message'><p>" . $JVDBuilder->getError() . "</p></div>";
+
+        $this->content .= "<form action='" . $this->router->getJVDSaveURL() . "'enctype=\"multipart/form-data\" method='post'>
             <input type='text' name='" . JVDBuilder::NOM_REF . "' id='" . JVDBuilder::NOM_REF . "' value='" . $data[JVDBuilder::NOM_REF] . "' /> <label for='nom'>" . JVDBuilder::NOM_REF . " JVD</label><br />
             <input type='text' name='" . JVDBuilder::GENRE_REF . "' id='" . JVDBuilder::GENRE_REF . "' value='" . $data[JVDBuilder::GENRE_REF] . "'/> <label for='nom'>" . JVDBuilder::GENRE_REF . " JVD</label><br />
             <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' id='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $data[JVDBuilder::ANNEE_SORTIE_REF] . "'/> <label for='age'>" . JVDBuilder::ANNEE_SORTIE_REF . " JVD</label><br />
             <input type='file' name='" . JVDBuilder::PHOTO_REF . "' id='" . JVDBuilder::ANNEE_SORTIE_REF . "'/>
 
-            <button type='submit'>Ajouter</button>
+            <br><br><button type='submit'>Ajouter</button>
         </form>";
 
-        }
     }
 
     public function displayJVDCreationFailure()
     {
-        $this->router->POSTredirect("jvd.php?action=nouveau", "Impossible d'ajouter cet JVD, données invalides!", 1);
+        $this->router->POSTredirect("jvd.php?action=nouveau", "Impossible d'ajouter ce jeu, données invalides!", 0);
     }
 
     public function retourAccueil($connexion)
