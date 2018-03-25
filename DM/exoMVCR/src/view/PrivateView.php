@@ -62,15 +62,31 @@ class PrivateView extends View
         $this->title = "Modifier le JVD ".$jvd->getNom();
         $this->content = "";
 
-        $this->content .= "<form action='" . $this->router->getJVDSaveModifURL() . "'enctype=\"multipart/form-data\" method='post'>
-            <input type='text' name='" . JVDBuilder::NOM_REF . "' id='" . JVDBuilder::NOM_REF . "' value='" .$jvd->getNom(). "' /> <label for='nom'>" . JVDBuilder::NOM_REF . " JVD</label><br />
-            <input type='text' name='" . JVDBuilder::GENRE_REF . "' id='" . JVDBuilder::GENRE_REF . "' value='" . $jvd->getGenre() . "'/> <label for='nom'>" . JVDBuilder::GENRE_REF . " JVD</label><br />
-            <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' id='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $jvd->getAnneeSortie() . "'/> <label for='age'>" . JVDBuilder::ANNEE_SORTIE_REF . " JVD</label><br />
-            <img src='".$jvd->getPhoto()."' onerror=\"this . src = './upload/imgDefault.png'\">
-            <input type='file' name='" . JVDBuilder::PHOTO_REF . "' id='" . JVDBuilder::PHOTO_REF . "'/>
-            <input type='hidden' name='id' value='".$jvd->getId()."'>
-
-            <br><br><button type='submit'>Modifier</button>
-        </form>";
+        $this->content .= "<div class='ui middle aligned center aligned grid'>
+                          <div class='column'>
+                            <form class='ui large form' action='" . $this->router->getJVDSaveModifURL() . "' enctype='multipart/form-data' method='post'>
+                              <div class='ui stacked segment'>
+                                <div class='field'>
+                                    <input type='text' name='" . JVDBuilder::NOM_REF . "' placeholder='Titre' value='" . stripslashes(htmlspecialchars($jvd->getNom(), ENT_QUOTES)) . "' required/>
+                                </div>
+                                <div class='field'>
+                                    <input type='text' name='" . JVDBuilder::GENRE_REF . "' placeholder='Genre' value='" . stripslashes(htmlspecialchars($jvd->getGenre(), ENT_QUOTES)) . "' required/>
+                                </div>
+                                <div class='field'>
+                                    <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $jvd->getAnneeSortie() . "' min='1950' required/>
+                                </div>
+                                <img src='".$jvd->getPhoto()."' id='previsualisation' onerror=\"this.src = './upload/imgDefault.png'\" width='100%'>
+                                <div class='field'>
+                                    <label for='file' class='ui icon button'>
+                                        <i class='file icon'></i>
+                                    Ajouter une vignette</label>
+                                    <input type='file' name='" . JVDBuilder::PHOTO_REF . "' id='file' style='display:none'>
+                                </div>
+                                <input type='hidden' name='id' value='".$jvd->getId()."'>
+                                <button class='ui fluid large teal submit button' type='submit'>Modifier</button>
+                              </div>                               
+                            </form>
+                          </div>
+                        </div>";
     }
 }
