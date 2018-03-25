@@ -52,8 +52,8 @@ class View
     public function makeJVDPage(JVD $JVD)
     {
         $this->title = $JVD->getNom();
-        $this->content = $JVD->getNom() . " est sortie en " . $JVD->getAnneeSortie() . ", c'est un JVD du genre " . $JVD->getGenre();
-        $this->content .="<img src='".$JVD->getPhoto()."' onerror=\"this.src='./upload/imgDefault.png'\">";
+        $this->content = "<img class='ui top aligned small image' src='".$JVD->getPhoto()."' onerror=\"this.src = './upload/imgDefault.png'\">";
+        $this->content .= "<span>".$JVD->getNom() . " est sortie en " . $JVD->getAnneeSortie() . ", c'est un JVD du genre " . $JVD->getGenre()."</span>";
 
     }
 
@@ -160,30 +160,28 @@ class View
     public function makeCreateAccountFormPage()
     {
         $this->title = " Inscription";
-        $this->content =
-            "
-                <div class='ui middle aligned center aligned grid'>
-                  <div class='column'>
-                    <form class='ui large form' method='post' action='" . ($_SERVER['PHP_SELF']) . "'>
-                      <div class='ui stacked segment'>
-                        <div class='field'>
-                            <input name='nomCmp' placeholder='Nom (visible par les autres utilisateurs)' required type='text'>
-                        </div>
-                        <div class='field'>
-                            <input name='pseudoCmp' placeholder='Pseudo' required type='text'>
-                        </div>
-                        <div class='field'>
-                            <input name='passCmp' placeholder='Mot de passe' required type='password'>
-                        </div>
-                        <button class='ui fluid large teal submit button' type='submit'>S'inscrire</button>
-                      </div>                               
-                    </form>
-                
-                    <div class='ui message'>
-                      Déja inscrit ? <a href='jvd.php?connexion'>Se connecter</a>
-                    </div>
-                  </div>
-                </div>";
+        $this->content = "<div class='ui middle aligned center aligned grid'>
+                          <div class='column'>
+                            <form class='ui large form' method='post' action='" . ($_SERVER['PHP_SELF']) . "'>
+                              <div class='ui stacked segment'>
+                                <div class='field'>
+                                    <input name='nomCmp' placeholder='Nom (visible par les autres utilisateurs)' required type='text'>
+                                </div>
+                                <div class='field'>
+                                    <input name='pseudoCmp' placeholder='Pseudo' required type='text'>
+                                </div>
+                                <div class='field'>
+                                    <input name='passCmp' placeholder='Mot de passe' required type='password'>
+                                </div>
+                                <button class='ui fluid large teal submit button' type='submit'>S'inscrire</button>
+                              </div>                               
+                            </form>
+                        
+                            <div class='ui message'>
+                              Déja inscrit ? <a href='jvd.php?connexion'>Se connecter</a>
+                            </div>
+                          </div>
+                        </div>";
 
     }
 
@@ -201,20 +199,35 @@ class View
     public function makeJVDCreationPage(JVDBuilder $JVDBuilder)
     {
         $data = $JVDBuilder->getData();
-        $this->title = "Ajouter un JVD";
+        $this->title = "Ajouter un jeu vidéo";
         $this->content = "";
         if ($JVDBuilder->getError())
             $this->content .= "<div class='ui compact red message'><p>" . $JVDBuilder->getError() . "</p></div>";
 
-        $this->content .= "<form action='" . $this->router->getJVDSaveURL() . "'enctype=\"multipart/form-data\" method='post'>
-            <input type='text' name='" . JVDBuilder::NOM_REF . "' id='" . JVDBuilder::NOM_REF . "' value='" . $data[JVDBuilder::NOM_REF] . "' /> <label for='nom'>" . JVDBuilder::NOM_REF . " JVD</label><br />
-            <input type='text' name='" . JVDBuilder::GENRE_REF . "' id='" . JVDBuilder::GENRE_REF . "' value='" . $data[JVDBuilder::GENRE_REF] . "'/> <label for='nom'>" . JVDBuilder::GENRE_REF . " JVD</label><br />
-            <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' id='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $data[JVDBuilder::ANNEE_SORTIE_REF] . "'/> <label for='age'>" . JVDBuilder::ANNEE_SORTIE_REF . " JVD</label><br />
-            <input type='file' name='" . JVDBuilder::PHOTO_REF . "' id='" . JVDBuilder::PHOTO_REF . "'/>
-
-            <br><br><button type='submit'>Ajouter</button>
-        </form>";
-
+        $this->content .= "<div class='ui middle aligned center aligned grid'>
+                          <div class='column'>
+                            <form class='ui large form' action='" . $this->router->getJVDSaveURL() . "' enctype='multipart/form-data' method='post'>
+                              <div class='ui stacked segment'>
+                                <div class='field'>
+                                    <input type='text' name='" . JVDBuilder::NOM_REF . "' placeholder='Titre' value='" . $data[JVDBuilder::NOM_REF] . "' required/>
+                                </div>
+                                <div class='field'>
+                                    <input type='text' name='" . JVDBuilder::GENRE_REF . "' placeholder='Genre' value='" . $data[JVDBuilder::GENRE_REF] . "' required/>
+                                </div>
+                                <div class='field'>
+                                    <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $data[JVDBuilder::ANNEE_SORTIE_REF] . "' required/>
+                                </div>
+                                <div class='field'>
+                                    <label for='file' class='ui icon button'>
+                                        <i class='file icon'></i>
+                                        Ajouter une vignette</label>
+                                    <input type='file' " . JVDBuilder::PHOTO_REF . " id='file' style='display:none'>
+                                </div>
+                                <button class='ui fluid large teal submit button' type='submit'>Ajouter</button>
+                              </div>                               
+                            </form>
+                          </div>
+                        </div>";
     }
 
     public function displayJVDCreationFailure()
@@ -227,7 +240,7 @@ class View
         if($connexion)
             $this->router->POSTredirect("jvd.php", "Connexion effectuée", 1);
         else
-            $this->router->POSTredirect("jvd.php", "Déconnexion effectuée", 0);
+            $this->router->POSTredirect("jvd.php", "Déconnexion effectuée", 1);
     }
 
     public function makeErreurAjoutJVDPage()
