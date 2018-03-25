@@ -59,7 +59,7 @@ class View
 
     public function makeUnknownJVDPage()
     {
-        $this->title = "JVD inconnu";
+        $this->title = "Jeu vidéo inconnu";
 
     }
 
@@ -72,12 +72,22 @@ class View
 
     public function makeListPage(array $tabJVD)
     {
-        $this->title = 'JVD disponibles à la consultation';
+        $this->title = 'Liste des jeux vidéos';
+        $this->content = "<div class='ui relaxed divided list'>";
         foreach ($tabJVD as $key => $JVD) {
             $nomJVD = $JVD->getNom();
             $idJVD = $JVD->getId();
-            $this->content .= "<a href='" . $this->router->getJVDURL($idJVD) . "'><h5>" . $nomJVD . "</h5></a>";
+            $photoJVD = $JVD->getPhoto();
+            $genreJVD = $JVD->getGenre();
+            $this->content .= "<div class=\"item\">
+                                <img class=\"ui avatar image\" src=\"$photoJVD\">
+                                <div class=\"content\">
+                                    <a class=\"header\" href='" . $this->router->getJVDURL($idJVD) . "'>".$nomJVD."</a>
+                                    <div class=\"description\">$genreJVD</div>
+                                </div>
+                              </div>";
         }
+        $this->content .= "</div>";
 
     }
 
@@ -215,13 +225,13 @@ class View
                                     <input type='text' name='" . JVDBuilder::GENRE_REF . "' placeholder='Genre' value='" . $data[JVDBuilder::GENRE_REF] . "' required/>
                                 </div>
                                 <div class='field'>
-                                    <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $data[JVDBuilder::ANNEE_SORTIE_REF] . "' required/>
+                                    <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $data[JVDBuilder::ANNEE_SORTIE_REF] . "' min='1950' required/>
                                 </div>
                                 <div class='field'>
                                     <label for='file' class='ui icon button'>
                                         <i class='file icon'></i>
                                         Ajouter une vignette</label>
-                                    <input type='file' " . JVDBuilder::PHOTO_REF . " id='file' style='display:none'>
+                                    <input type='file' name='" . JVDBuilder::PHOTO_REF . "' id='file' style='display:none'>
                                 </div>
                                 <button class='ui fluid large teal submit button' type='submit'>Ajouter</button>
                               </div>                               
