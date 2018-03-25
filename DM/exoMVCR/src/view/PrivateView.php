@@ -19,14 +19,16 @@ class PrivateView extends View
         $this->router = $router;
         $this->title = "Accueil";
         $this->content = null;
-        $this->menu = array(
-            "nouveau" => "<a href='jvd.php?action=nouveau'>Ajouter un JVD</a>",
-            "accueil" => "<a href='jvd.php'>Accueil</a>",
-            "liste" => "<a href='jvd.php?liste'>Liste</a>",
-            "connexion"=>"<a href='jvd.php?connexion'>Deconnexion</a>"
+        $this->menuLeft = array(
+            "accueil" => array("jvd.php","Accueil"),
+            "nouveau" => array("jvd.php?action=nouveau","Ajouter un JVD"),
+            "liste" => array("jvd.php?liste","Liste")
+        );
+        $this->menuRight = array(
+            "connexion" => array("jvd.php?connexion","Déconnexion")
         );
         $this->feedback = $feedback;
-        $this->account=$account;
+        $this->account = $account;
     }
 
     public function pageAccueil(){

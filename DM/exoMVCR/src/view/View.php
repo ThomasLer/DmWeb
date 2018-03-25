@@ -15,6 +15,7 @@ class View
 
     public function __construct(Router $router, $feedback)
     {
+        echo "1";
         $this->router = $router;
         $this->title = "Accueil";
         $this->content = null;

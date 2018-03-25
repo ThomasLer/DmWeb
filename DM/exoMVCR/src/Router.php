@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 require_once("view/View.php");
 require_once("view/PrivateView.php");
@@ -24,6 +23,8 @@ class Router
 
     public function main(JVDStorage $JVDStorage, AccountStorageMySQL $accountStorageMySQL)
     {
+
+        session_start();
 
         $etatCo = null;
         if (key_exists('user', $_SESSION)) {
@@ -61,9 +62,6 @@ class Router
         }
         if (key_exists('pseudoCmp', $_POST) && key_exists('passCmp', $_POST)) {
             $unController->newCompte();
-        }
-        if (key_exists('user', $_SESSION)) {
-            echo "bonjour " . $_SESSION['user']->getNom();
         }
         if (key_exists('deconnexion', $_POST)) {
             unset($_SESSION['user']);
