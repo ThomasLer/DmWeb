@@ -129,19 +129,28 @@ class View
         $this->title = " Connexion";
         $this->content =
             $erreur . " \n
-                <form method=\"post\" action='" . ($_SERVER['PHP_SELF']) . "'>
-                    <p>
-                        <label for=\"Nom\">Votre Peudo :</label>
-                        <input type=\"text\" name=\"Nom\" id=\"Nom\" required/>
-
-                        <label for=\"pass\">Votre mot de passe :</label>
-                        <input type=\"password\" name=\"pass\" id=\"pass\" required/>
-
-                        <input type=\"submit\" value=\"connexion\">
-
-                    </p>
-                    <a href=\"jvd.php?nvCompte\"> Toujours pas de compte? </a>
-                </form>";
+                <div class=\"ui middle aligned center aligned grid\">
+                  <div class=\"column\">
+                    <form class=\"ui large form\" method=\"post\" action='" . ($_SERVER['PHP_SELF']) . "'>
+                      <div class=\"ui stacked segment\">
+                        <div class=\"field\">
+                            <input name=\"nom\" placeholder=\"Pseudo\" type=\"text\">
+                        </div>
+                        <div class=\"field\">
+                            <input name=\"pass\" placeholder=\"Mot de passe\" type=\"password\">
+                        </div>
+                        <div class=\"ui fluid large teal submit button\">Connexion</div>
+                      </div>
+                
+                      <div class=\"ui error message\"></div>
+                
+                    </form>
+                
+                    <div class=\"ui message\">
+                      Nouveau ? <a href=\"jvd.php?nvCompte\">S'inscrire</a>
+                    </div>
+                  </div>
+                </div>";
     }
 
     public function makeCreateAccountFormPage()
@@ -224,29 +233,30 @@ class View
         ?>
         <!DOCTYPE html>
         <html lang="fr">
-        <head>
-            <title><?php echo $this->title; ?></title>
-            <meta charset="UTF-8"/>
-            <link rel="stylesheet" type="text/css" href="skin/semantic.min.css">
-        </head>
-        <body>
-            <div class="ui menu">
-                <div class="ui container">
-                    <?php $this->afficheMenu(); ?>
+            <head>
+                <title><?php echo $this->title; ?></title>
+                <meta charset="UTF-8"/>
+                <link rel="stylesheet" type="text/css" href="skin/semantic.min.css">
+                <link rel="stylesheet" type="text/css" href="skin/semantic-reset.css">
+            </head>
+            <body>
+                <div class="ui menu">
+                    <div class="ui container">
+                        <?php $this->afficheMenu(); ?>
+                    </div>
                 </div>
-            </div>
-            <div class="ui text container">
-                <h6 class="feedback"><?php echo $this->feedback ?></h6>
-                <main>
-                    <h1><?php echo $this->title; ?></h1>
-                    <?php
-                    echo $this->content;
-                    ?>
-                </main>
-            </div>
-        </body>
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="skin/semantic.min.js"></script>
+                <div class="ui main text container">
+                    <?php if($this->feedback) { ?>
+                        <div class="ui red message">
+                            <?php echo $this->feedback ?>
+                        </div>
+                    <?php } ?>
+                    <h1 class="ui header"><?php echo $this->title; ?></h1>
+                    <p><?php echo $this->content; ?></p>
+                </div>
+            </body>
+            <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+            <script src="skin/semantic.min.js"></script>
         </html>
 
         <?php
