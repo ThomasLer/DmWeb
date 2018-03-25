@@ -236,8 +236,7 @@ class View
             <head>
                 <title><?php echo $this->title; ?></title>
                 <meta charset="UTF-8"/>
-                <link rel="stylesheet" type="text/css" href="skin/semantic.min.css">
-                <link rel="stylesheet" type="text/css" href="skin/semantic-reset.css">
+                <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
             </head>
             <body>
                 <div class="ui menu">
@@ -255,8 +254,8 @@ class View
                     <p><?php echo $this->content; ?></p>
                 </div>
             </body>
-            <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-            <script src="skin/semantic.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
         </html>
 
         <?php
