@@ -68,6 +68,8 @@ class Controller
 
     public function recupJVDmodif($id){
         $jvdModif=$this->JVDStorage->read($id);
+        $this->view->makeModifJvdPage($jvdModif);
+
     }
 
     public function sauverModif(array $data){
@@ -79,7 +81,8 @@ class Controller
         }
         $data[JVDBuilder::PHOTO_REF]=$upload_dir."upload_".$name;
 
-        $idJVD=$this->data['id'];
+
+        $idJVD=$data['id'];
         $JVDBuilder = new JVDBuilder($data);
         $JVDSave = $JVDBuilder->createJVD();
         if ($JVDSave !== null) {
