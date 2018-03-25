@@ -63,8 +63,15 @@ class Controller
 
     public function suppJVD($id){
 
-        $this->JVDStorage->delete($id);
-        echo "ok";
+       $this->JVDStorage->delete($id);
+            }
+
+    public function recupJVDmodif($id){
+        $jvdModif=$this->JVDStorage->read($id);
+    }
+
+    public function sauverModif($data){
+
     }
 
     public function newCompte(){

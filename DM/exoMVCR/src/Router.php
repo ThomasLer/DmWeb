@@ -49,7 +49,10 @@ class Router
                 $unController->newJVD();
             } elseif ($_GET['action'] == 'sauverNouveau') {
                 $unController->saveNewJVD($_POST);
+            } elseif ($_GET['action'] == 'sauverModif') {
+                $unController->
             }
+
         } elseif (key_exists('action', $_GET) && $etatCo !== 1) {
             if ($_GET['action'] == 'nouveau') {
                 $uneVue->makeNeedConnectionPage();
@@ -60,6 +63,8 @@ class Router
             $unController->newCompte();
         } elseif (key_exists(('suppId'), $_GET) && $etatCo == 1) {
             $unController->suppJVD($_GET['suppId']);
+        } elseif (key_exists(('modifId'), $_GET) && $etatCo == 1) {
+            $unController->recupJVDmodif($_GET['modifId']);
         } else {
             $uneVue->pageAccueil();
         }
@@ -92,6 +97,12 @@ class Router
         return $url;
     }
 
+    public function getJVDmodif($id)
+    {
+        $url = "jvd.php?modifId=" . $id;
+        return $url;
+    }
+
     public function getJVDCreationURL()
     {
         $url = "jvd.php?action=nouveau";
@@ -104,10 +115,16 @@ class Router
         return $url;
     }
 
+    public function getJVDSaveModifURL()
+    {
+        $url = "jvd.php?action=sauverModif";
+        return $url;
+    }
+
     public function POSTredirect($url, $feedback, $isSuccess)
     {
         $_SESSION['feedback'] = array($feedback, $isSuccess);
         session_write_close();
-        header("Location: ".htmlspecialchars_decode($url), true, 303);
+        header("Location: " . htmlspecialchars_decode($url), true, 303);
     }
 }

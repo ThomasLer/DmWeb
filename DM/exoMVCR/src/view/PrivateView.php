@@ -42,8 +42,26 @@ class PrivateView extends View
         foreach ($tabJVD as $key => $JVD) {
             $nomJVD = $JVD->getNom();
             $idJVD = $JVD->getId();
-            $this->content .= "<a href='" . $this->router->getJVDURL($idJVD) . "'><h5>" . $nomJVD . "</h5></a><a href='" . $this->router->getJVDSupp($idJVD) . "'><h5>X</h5></a>";
+            $this->content .= "<a href='" . $this->router->getJVDURL($idJVD) . "'><h5>" . $nomJVD . "</h5></a>
+            <a href='" . $this->router->getJVDSupp($idJVD) . "'><h5>X</h5></a>
+            <a href='" . $this->router->getJVDmodif($idJVD) . "'><h5>...</h5></a>";
         }
 
+    }
+
+    public function makeModifJvdPage(JVD $jvd){
+        $this->title = "Modifier le JVD ".$jvd->getNom();
+        $this->content = "";
+
+        $this->content .= "<form action='" . $this->router->getJVDSaveModifURL() . "'enctype=\"multipart/form-data\" method='post'>
+            <input type='text' name='" . JVDBuilder::NOM_REF . "' id='" . JVDBuilder::NOM_REF . "' value='" .$jvd->getNom(). "' /> <label for='nom'>" . JVDBuilder::NOM_REF . " JVD</label><br />
+            <input type='text' name='" . JVDBuilder::GENRE_REF . "' id='" . JVDBuilder::GENRE_REF . "' value='" . $jvd->getGenre() . "'/> <label for='nom'>" . JVDBuilder::GENRE_REF . " JVD</label><br />
+            <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' id='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $jvd->getAnneeSortie() . "'/> <label for='age'>" . JVDBuilder::ANNEE_SORTIE_REF . " JVD</label><br />
+            <img src='".$jvd->getPhoto()."' onerror=\"this . src = './upload/imgDefault.png'\">
+            <input type='file' name='" . JVDBuilder::PHOTO_REF . "' id='" . JVDBuilder::PHOTO_REF . "'/>
+            <input type='hidden' name='id' value='".$jvd->getId()."'>
+
+            <br><br><button type='submit'>Ajouter</button>
+        </form>";
     }
 }

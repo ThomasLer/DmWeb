@@ -259,6 +259,7 @@ class View
                     } ?>
                     <h1 class="ui header"><?php echo $this->title; ?></h1>
                     <p><?php echo $this->content; ?></p>
+
                 </div>
             </body>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

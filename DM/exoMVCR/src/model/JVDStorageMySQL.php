@@ -25,7 +25,6 @@ class JVDStorageMySQL implements JVDStorage
         $result = $req->fetch();
 
         return new JVD($result['id'],$result['nom'],$result['genre'],$result['annee_sortie'],$result['photo']);
-        //echo '<pre>' . var_export($result, true) . '</pre>';
     }
 
     public function readAll()
@@ -65,5 +64,9 @@ class JVDStorageMySQL implements JVDStorage
         $req->execute(array(
             "id"=>$id
         ));
+    }
+
+    public function modification($id){
+
     }
 }
