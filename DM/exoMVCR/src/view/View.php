@@ -53,6 +53,8 @@ class View
     {
         $this->title = $JVD->getNom();
         $this->content = $JVD->getNom() . " est sortie en " . $JVD->getAnneeSortie() . ", c'est un JVD du genre " . $JVD->getGenre();
+        $this->content .="<img src='".$JVD->getPhoto()."'>";
+
     }
 
     public function makeUnknownJVDPage()

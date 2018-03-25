@@ -33,9 +33,9 @@ class Controller
 
         if(key_exists(JVDBuilder::PHOTO_REF,$_FILES)){
             $name=$_FILES[JVDBuilder::PHOTO_REF]['name'];
-            move_uploaded_file($_FILES[JVDBuilder::PHOTO_REF]['tmp_name'],$upload_dir."_".$name);
+            move_uploaded_file($_FILES[JVDBuilder::PHOTO_REF]['tmp_name'],$upload_dir."upload_".$name);
         }
-        $data[JVDBuilder::PHOTO_REF]=$upload_dir.$name;
+        $data[JVDBuilder::PHOTO_REF]=$upload_dir."upload_".$name;
 
         $JVDBuilder = new JVDBuilder($data);
         $JVDSave = $JVDBuilder->createJVD();
