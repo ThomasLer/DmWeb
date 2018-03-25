@@ -50,7 +50,7 @@ class Router
             } elseif ($_GET['action'] == 'sauverNouveau') {
                 $unController->saveNewJVD($_POST);
             }
-        } elseif (key_exists('action', $_GET) && $etatCo == 1) {
+        } elseif (key_exists('action', $_GET) && $etatCo !== 1) {
             if ($_GET['action'] == 'nouveau') {
                 $uneVue->makeNeedConnectionPage();
             }
