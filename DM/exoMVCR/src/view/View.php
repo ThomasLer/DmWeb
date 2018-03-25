@@ -199,7 +199,6 @@ class View
     public function makeJVDCreationPage(JVDBuilder $JVDBuilder)
     {
         $data = $JVDBuilder->getData();
-
         $this->title = "Ajouter un JVD";
         $this->content = "";
         if ($JVDBuilder->getError())
@@ -209,7 +208,7 @@ class View
             <input type='text' name='" . JVDBuilder::NOM_REF . "' id='" . JVDBuilder::NOM_REF . "' value='" . $data[JVDBuilder::NOM_REF] . "' /> <label for='nom'>" . JVDBuilder::NOM_REF . " JVD</label><br />
             <input type='text' name='" . JVDBuilder::GENRE_REF . "' id='" . JVDBuilder::GENRE_REF . "' value='" . $data[JVDBuilder::GENRE_REF] . "'/> <label for='nom'>" . JVDBuilder::GENRE_REF . " JVD</label><br />
             <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' id='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $data[JVDBuilder::ANNEE_SORTIE_REF] . "'/> <label for='age'>" . JVDBuilder::ANNEE_SORTIE_REF . " JVD</label><br />
-            <input type='file' name='" . JVDBuilder::PHOTO_REF . "' id='" . JVDBuilder::ANNEE_SORTIE_REF . "'/>
+            <input type='file' name='" . JVDBuilder::PHOTO_REF . "' id='" . JVDBuilder::PHOTO_REF . "'/>
 
             <br><br><button type='submit'>Ajouter</button>
         </form>";

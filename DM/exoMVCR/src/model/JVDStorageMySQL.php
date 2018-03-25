@@ -19,13 +19,12 @@ class JVDStorageMySQL implements JVDStorage
 
     public function read($id)
     {
-
         $req = $this->connection->prepare("SELECT * FROM jvd WHERE id=:id");
         $req->execute(array(':id' => $id));
 
         $result = $req->fetch();
 
-        return new JVD($result['id'],$result['nom'],$result['genre'],$result['annee_sortie']);
+        return new JVD($result['id'],$result['nom'],$result['genre'],$result['annee_sortie'],$result['photo']);
         //echo '<pre>' . var_export($result, true) . '</pre>';
     }
 
@@ -37,7 +36,7 @@ class JVDStorageMySQL implements JVDStorage
         $result = $req->fetchAll();
         $tabJvd=array();
         foreach($result as $jvd){
-            $nvJvd= new JVD($jvd['id'],$jvd['nom'],$jvd['genre'],$jvd['annee_sortie']);
+            $nvJvd= new JVD($jvd['id'],$jvd['nom'],$jvd['genre'],$jvd['annee_sortie'],$jvd['photo']);
             array_push($tabJvd,$nvJvd);
         }
 
@@ -47,12 +46,13 @@ class JVDStorageMySQL implements JVDStorage
     public function create(JVD $a)
     {
 
-        $req = $this->connection->prepare("INSERT INTO jvd (nom,genre,annee_sortie) VALUES (:nom,:genre,:annee_sortie)");
+        $req = $this->connection->prepare("INSERT INTO jvd (nom,genre,annee_sortie,photo) VALUES (:nom,:genre,:annee_sortie,:photo)");
         $req->execute(array(
             "nom"=>$a->getNom(),
             "genre"=>$a->getGenre(),
-            "annee_sortie"=>$a->getAnneeSortie()
-            ));
+            "annee_sortie"=>$a->getAnneeSortie(),
+            "photo"=>$a->getPhoto()
+        ));
 
         $rep=$this->connection->prepare("Select MAX(id) as id FROM jvd");
         $rep->execute();

@@ -29,15 +29,26 @@ class Controller
 
     public function saveNewJVD(array $data)
     {
-        $JVDBuilder = new JVDBuilder($data);
-        if(!$JVDBuilder->isValid()) {
-            $_SESSION['currentNewJVD'] = $JVDBuilder;
-            $this->view->displayJVDCreationFailure();
-        } else {
-            unset($_SESSION['currentNewAnimal']);
-            $id = $this->JVDStorage->create($JVDBuilder->createJVD());
-            $this->view->displayJVDCreationSuccess($id);
+        $upload_dir="./upload/";
+
+        if(key_exists(JVDBuilder::PHOTO_REF,$_FILES)){
+            $name=$_FILES[JVDBuilder::PHOTO_REF]['name'];
+            move_uploaded_file($_FILES[JVDBuilder::PHOTO_REF]['tmp_name'],$upload_dir."_".$name);
         }
+        $data[JVDBuilder::PHOTO_REF]=$upload_dir.$name;
+
+        $JVDBuilder = new JVDBuilder($data);
+        $JVDSave = $JVDBuilder->createJVD();
+        if ($JVDSave !== null) {
+            $id = $this->JVDStorage->create($JVDSave);
+            $this->view->displayJVDCreationSuccess($id);
+            unset($_SESSION['currentNewJVD']);
+        } else {
+            $this->view->displayJVDCreationFailure($data);
+            $_SESSION['currentNewJVD'] = $JVDBuilder;
+
+        }
+        //$this->showList();
     }
 
     public function newJVD()

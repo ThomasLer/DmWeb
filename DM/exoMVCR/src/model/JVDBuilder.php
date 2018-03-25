@@ -10,7 +10,7 @@ class JVDBuilder
 {
     private $data;
     private $error;
-    const NOM_REF="NomJVD";
+    const NOM_REF="nom";
     const GENRE_REF ="genre";
     const ANNEE_SORTIE_REF="annee_sortie";
     const PHOTO_REF="photo";
@@ -24,7 +24,7 @@ class JVDBuilder
     public function __construct($data=null)
     {
         if ($data==null){
-            $this->data = array(self::NOM_REF=>"",self::GENRE_REF=>"",self::ANNEE_SORTIE_REF=>0);
+            $this->data = array(self::NOM_REF=>"",self::GENRE_REF=>"",self::ANNEE_SORTIE_REF=>0,self::PHOTO_REF=>null);
         }
         else{
             $this->data=$data;
@@ -49,7 +49,17 @@ class JVDBuilder
     }
 
     public function createJVD(){
-        return new JVD(null,$this->data[self::NOM_REF], $this->data[self::GENRE_REF], $this->data[self::ANNEE_SORTIE_REF]);
+
+        if (key_exists(self::NOM_REF, $this->data) && key_exists(self::GENRE_REF, $this->data) && key_exists(self::ANNEE_SORTIE_REF, $this->data) && (key_exists(self::PHOTO_REF, $this->data))) {
+            if($this->isValid()){
+                $nvJVD = new JVD(null,$this->data[self::NOM_REF], $this->data[self::GENRE_REF], $this->data[self::ANNEE_SORTIE_REF],$this->data[self::PHOTO_REF]);
+                return $nvJVD;
+            }
+            else{
+                return null;
+
+            }
+        }
     }
 
     public function isValid(){
