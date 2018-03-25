@@ -52,7 +52,7 @@ class View
     public function makeJVDPage(JVD $JVD)
     {
         $this->title = $JVD->getNom();
-        $this->content = "<img class='ui top aligned small image' src='".$JVD->getPhoto()."' onerror='this.src='./upload/imgDefault.png''>";
+        $this->content = "<img class='ui top aligned small image' src='".$JVD->getPhoto()."' onerror=\"this.src = './upload/imgDefault.png'\">";
         $this->content .= "<span>".$JVD->getNom() . " est sortie en " . $JVD->getAnneeSortie() . ", c'est un JVD du genre " . $JVD->getGenre()."</span>";
 
     }
