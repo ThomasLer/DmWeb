@@ -125,7 +125,7 @@ class View
 
     public function displayJVDCreationSuccess($id)
     {
-        $this->router->POSTredirect("jvd.php?id=" . $id, "JVD ajouté!");
+        $this->router->POSTredirect("jvd.php?id=" . $id, "JVD ajouté!", 1);
     }
 
 
@@ -216,12 +216,15 @@ class View
 
     public function displayJVDCreationFailure()
     {
-        $this->router->POSTredirect("jvd.php?action=nouveau", "Impossible d'ajouter cet JVD, données invalides!");
+        $this->router->POSTredirect("jvd.php?action=nouveau", "Impossible d'ajouter cet JVD, données invalides!", 1);
     }
 
-    public function retourAccueil()
+    public function retourAccueil($connexion)
     {
-        $this->router->POSTredirect("jvd.php", "Connexion effectué");
+        if($connexion)
+            $this->router->POSTredirect("jvd.php", "Connexion effectuée", 1);
+        else
+            $this->router->POSTredirect("jvd.php", "Déconnexion effectuée", 0);
     }
 
     public function makeErreurAjoutJVDPage()
@@ -247,11 +250,10 @@ class View
                     </div>
                 </div>
                 <div class="ui main text container">
-                    <?php if($this->feedback) { ?>
-                        <div class="ui red message">
-                            <?php echo $this->feedback ?>
-                        </div>
-                    <?php } ?>
+                    <?php if($this->feedback) {
+                        $color = ($this->feedback[1]) ? 'green' : 'red';
+                        echo "<div class='ui ".$color." message'>".$this->feedback[0]."</div> ";
+                    } ?>
                     <h1 class="ui header"><?php echo $this->title; ?></h1>
                     <p><?php echo $this->content; ?></p>
                 </div>

@@ -87,7 +87,7 @@ class Controller
 
         switch($this->accountStorageMySQL->checkAuth($_POST['Nom'],$_POST['pass'])){
             case 1:
-                $this->view->retourAccueil();
+                $this->view->retourAccueil(1);
                 break;
             case 0:
                 $this->view->makeLoginFormPage("Mot de passe incorecte");

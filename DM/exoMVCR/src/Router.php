@@ -26,8 +26,8 @@ class Router
 
         session_start();
 
-        $feedback = key_exists('feedback', $_SESSION) ? $_SESSION['feedback'] : '';
-        $_SESSION['feedback'] = '';
+        $feedback = (key_exists('feedback', $_SESSION) and sizeof($_SESSION['feedback']) == 2) ? $_SESSION['feedback'] : '';
+        unset($_SESSION['feedback']);
 
         $etatCo = null;
         if (key_exists('user', $_SESSION)) {
@@ -71,7 +71,7 @@ class Router
         }
         if (key_exists('deconnexion', $_POST)) {
             unset($_SESSION['user']);
-            $uneVue->retourAccueil();
+            $uneVue->retourAccueil(0);
 
         }
 
@@ -104,9 +104,9 @@ class Router
         return $url;
     }
 
-    public function POSTredirect($url, $feedback)
+    public function POSTredirect($url, $feedback, $isSuccess)
     {
-        $_SESSION['feedback'] = $feedback;
+        $_SESSION['feedback'] = array($feedback, $isSuccess);
         session_write_close();
         header("Location: ".htmlspecialchars_decode($url), true, 303);
     }
