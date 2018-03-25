@@ -79,6 +79,10 @@ class View
 
     }
 
+    public function makeNeedConnectionPage(){
+        $this->title="Page inaccessible";
+        $this->content="Veuillez vous connecter pour accéder à cette page";
+    }
 
     /**
      * @return null
