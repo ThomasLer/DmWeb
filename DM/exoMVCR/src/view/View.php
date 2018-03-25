@@ -15,7 +15,6 @@ class View
 
     public function __construct(Router $router, $feedback)
     {
-        echo "1";
         $this->router = $router;
         $this->title = "Accueil";
         $this->content = null;
@@ -130,25 +129,22 @@ class View
         $this->title = " Connexion";
         $this->content =
             $erreur . " \n
-                <div class=\"ui middle aligned center aligned grid\">
-                  <div class=\"column\">
-                    <form class=\"ui large form\" method=\"post\" action='" . ($_SERVER['PHP_SELF']) . "'>
-                      <div class=\"ui stacked segment\">
-                        <div class=\"field\">
-                            <input name=\"nom\" placeholder=\"Pseudo\" type=\"text\">
+                <div class='ui middle aligned center aligned grid'>
+                  <div class='column'>
+                    <form class='ui large form' method='post' action='" . ($_SERVER['PHP_SELF']) . "'>
+                      <div class='ui stacked segment'>
+                        <div class='field'>
+                            <input name='Nom' placeholder='Pseudo' type='text'>
                         </div>
-                        <div class=\"field\">
-                            <input name=\"pass\" placeholder=\"Mot de passe\" type=\"password\">
+                        <div class='field'>
+                            <input name='pass' placeholder='Mot de passe' type='password'>
                         </div>
-                        <div class=\"ui fluid large teal submit button\">Connexion</div>
-                      </div>
-                
-                      <div class=\"ui error message\"></div>
-                
+                        <button class='ui fluid large teal submit button' type='submit'>Submit</button>
+                      </div>                               
                     </form>
                 
-                    <div class=\"ui message\">
-                      Nouveau ? <a href=\"jvd.php?nvCompte\">S'inscrire</a>
+                    <div class='ui message'>
+                      Nouveau ? <a href='jvd.php?nvCompte'>S'inscrire</a>
                     </div>
                   </div>
                 </div>";
