@@ -19,55 +19,87 @@ class Router
      */
     public function __construct()
     {
+        session_start();
     }
 
     public function main(JVDStorage $JVDStorage, AccountStorageMySQL $accountStorageMySQL)
     {
 
-        session_start();
-
         $feedback = (key_exists('feedback', $_SESSION) and sizeof($_SESSION['feedback']) == 2) ? $_SESSION['feedback'] : '';
         unset($_SESSION['feedback']);
 
-        $etatCo = null;
-        if (key_exists('user', $_SESSION)) {
-            $etatCo = 1;
-        }
-        if ($etatCo !== 1) {
+        $isConnected = false;
+        if (key_exists('user', $_SESSION))
+            $isConnected = true;
+
+        if (!$isConnected)
             $uneVue = new View($this, $feedback);
-        } else {
+        else
             $uneVue = new PrivateView($this, $feedback, $_SESSION['user']);
-        }
-
         $unController = new Controller($uneVue, $JVDStorage, $accountStorageMySQL);
-        if (key_exists('id', $_GET)) {
-            $unController->showInformation($_GET['id']);
-        } elseif (key_exists('liste', $_GET)) {
-            $unController->showList();
-        } elseif (key_exists('action', $_GET) && $etatCo == 1) {
-            if ($_GET['action'] == 'nouveau') {
-                $unController->newJVD();
-            } elseif ($_GET['action'] == 'sauverNouveau') {
-                $unController->saveNewJVD($_POST);
-            } elseif ($_GET['action'] == 'sauverModif') {
-                $unController->sauverModif($_POST);
-            }
 
-        } elseif (key_exists('action', $_GET) && $etatCo !== 1) {
-            if ($_GET['action'] == 'nouveau') {
-                $uneVue->makeNeedConnectionPage();
+        if(isset($_SERVER['PATH_INFO']))
+        {
+            $page = explode('/', $_SERVER['PATH_INFO']);
+            if (key_exists(1,$page))
+            {
+                switch ($page[1]) {
+                    case "id":
+                        if (key_exists(2,$page))
+                            $unController->showInformation($page[2]);
+                        else
+                            $uneVue->makeUnknownActionPage();
+                        break;
+                    case "liste":
+                        $unController->showList();
+                        break;
+                    case "connexion":
+                        $unController->gestionConnexionDeconnexion();
+                        break;
+                    case "nvCompte":
+                        $unController->newCompte();
+                        break;
+                    case "suppId":
+                        if (key_exists(2,$page))
+                            $unController->suppJVD($page[2]);
+                        else
+                            $uneVue->makeUnknownActionPage();
+                        break;
+                    case "modifId":
+                        if (key_exists(2,$page))
+                            $unController->recupJVDmodif($page[2]);
+                        else
+                            $uneVue->makeUnknownActionPage();
+                        break;
+                    case "action":
+                        if (isset($page[2]) and !empty($page[2])) {
+                            if($isConnected)
+                                switch ($page[2]) {
+                                    case "sauverNouveau":
+                                        $unController->saveNewJVD($_POST);
+                                        break;
+                                    case "nouveau":
+                                        $unController->newJVD();
+                                        break;
+                                    case "sauverModif":
+                                        $unController->sauverModif($_POST);
+                                        break;
+                                    default :
+                                        $uneVue->makeUnknownActionPage();
+                                        break;
+                                }
+                        } else {
+                            $uneVue->makeUnknownActionPage();
+                            break;
+                        }
+                        break;
+                    default :
+                        $uneVue->pageAccueil();
+                        break;
+                }
             }
-        } elseif (key_exists('connexion', $_GET)) {
-            $unController->gestionConnexionDeconnexion();
-        } elseif (key_exists('nvCompte', $_GET) and !key_exists('user', $_SESSION)) {
-            $unController->newCompte();
-        } elseif (key_exists(('suppId'), $_GET) && $etatCo == 1) {
-            $unController->suppJVD($_GET['suppId']);
-        } elseif (key_exists(('modifId'), $_GET) && $etatCo == 1) {
-            $unController->recupJVDmodif($_GET['modifId']);
-        } else {
-            $uneVue->pageAccueil();
         }
+
         if (key_exists('Nom', $_POST) && key_exists('pass', $_POST)) {
             $unController->verifConnexion();
         }
@@ -77,47 +109,43 @@ class Router
         if (key_exists('deconnexion', $_POST)) {
             unset($_SESSION['user']);
             $uneVue->retourAccueil(0);
-
         }
-
         $uneVue->render();
-
     }
 
     public function getJVDURL($id)
     {
-
-        $url = "jvd.php?id=" . $id;
+        $url = "http://localhost/DmWeb/DM/exoMVCR/jvd.php/id/" . $id;
         return $url;
     }
 
     public function getJVDSupp($id)
     {
-        $url = "jvd.php?suppId=" . $id;
+        $url = "http://localhost/DmWeb/DM/exoMVCR/jvd.php/suppId/" . $id;
         return $url;
     }
 
     public function getJVDmodif($id)
     {
-        $url = "jvd.php?modifId=" . $id;
+        $url = "http://localhost/DmWeb/DM/exoMVCR/jvd.php/modifId/" . $id;
         return $url;
     }
 
     public function getJVDCreationURL()
     {
-        $url = "jvd.php?action=nouveau";
+        $url = "http://localhost/DmWeb/DM/exoMVCR/jvd.php/action/nouveau";
         return $url;
     }
 
     public function getJVDSaveURL()
     {
-        $url = "jvd.php?action=sauverNouveau";
+        $url = "http://localhost/DmWeb/DM/exoMVCR/jvd.php/action/sauverNouveau";
         return $url;
     }
 
     public function getJVDSaveModifURL()
     {
-        $url = "jvd.php?action=sauverModif";
+        $url = "http://localhost/DmWeb/DM/exoMVCR/jvd.php/action/sauverModif";
         return $url;
     }
 
@@ -125,6 +153,6 @@ class Router
     {
         $_SESSION['feedback'] = array($feedback, $isSuccess);
         session_write_close();
-        header("Location: " . htmlspecialchars_decode($url), true, 303);
+        header("Location: http://localhost/DmWeb/DM/exoMVCR/" . htmlspecialchars_decode($url), true, 303);
     }
 }

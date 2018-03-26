@@ -19,13 +19,13 @@ class View
         $this->title = "Accueil";
         $this->content = null;
         $this->menuLeft = array(
-            "accueil" => array("jvd.php","Accueil"),
-            "nouveau" => array("jvd.php?action=nouveau","Ajouter un JVD"),
-            "liste" => array("jvd.php?liste","Liste")
+            "accueil" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php","Accueil"),
+            "nouveau" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php/action/nouveau","Ajouter un JVD"),
+            "liste" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php/liste","Liste")
         );
         $this->menuRight = array(
-            "connexion" => array("jvd.php?connexion","Connexion"),
-            "inscription" => array("jvd.php?nvCompte","Inscription")
+            "connexion" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php/connexion","Connexion"),
+            "inscription" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php/nvCompte","Inscription")
         );
         $this->feedback = $feedback;
     }
@@ -60,6 +60,13 @@ class View
     public function makeUnknownJVDPage()
     {
         $this->title = "Jeu vidéo inconnu";
+
+    }
+
+    public function makeUnknownActionPage()
+    {
+        $this->title = "Page inconnu";
+        $this->content = "Erreur 404, cette page n'existe pas!";
 
     }
 
@@ -137,7 +144,7 @@ class View
 
     public function displayJVDCreationSuccess($id)
     {
-        $this->router->POSTredirect("jvd.php?id=" . $id, "JVD ajouté!", 1);
+        $this->router->POSTredirect("jvd.php/id/" . $id, "JVD ajouté!", 1);
     }
 
 
@@ -243,7 +250,7 @@ class View
 
     public function displayJVDCreationFailure()
     {
-        $this->router->POSTredirect("jvd.php?action=nouveau", "Impossible d'ajouter ce jeu, données invalides!", 0);
+        $this->router->POSTredirect("jvd.php/action/nouveau", "Impossible d'ajouter ce jeu, données invalides!", 0);
     }
 
     public function retourAccueil($connexion)
@@ -307,16 +314,6 @@ class View
                 });
             </script>
         </html>
-
         <?php
-
-
     }
-
-
 }
-
-?>
-
-
-
