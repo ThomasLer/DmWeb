@@ -93,8 +93,11 @@ class Router
                             break;
                         }
                         break;
-                    default :
+                    case "accueil":
                         $uneVue->pageAccueil();
+                        break;
+                    default :
+                        $uneVue->makeUnknownActionPage();
                         break;
                 }
             }
@@ -115,37 +118,37 @@ class Router
 
     public function getJVDURL($id)
     {
-        $url = "http://localhost/DmWeb/DM/exoMVCR/jvd.php/id/" . $id;
+        $url = PATH."/jvd.php/id/" . $id;
         return $url;
     }
 
     public function getJVDSupp($id)
     {
-        $url = "http://localhost/DmWeb/DM/exoMVCR/jvd.php/suppId/" . $id;
+        $url = PATH."/suppId/" . $id;
         return $url;
     }
 
     public function getJVDmodif($id)
     {
-        $url = "http://localhost/DmWeb/DM/exoMVCR/jvd.php/modifId/" . $id;
+        $url = PATH."/modifId/" . $id;
         return $url;
     }
 
     public function getJVDCreationURL()
     {
-        $url = "http://localhost/DmWeb/DM/exoMVCR/jvd.php/action/nouveau";
+        $url = PATH."/action/nouveau";
         return $url;
     }
 
     public function getJVDSaveURL()
     {
-        $url = "http://localhost/DmWeb/DM/exoMVCR/jvd.php/action/sauverNouveau";
+        $url = PATH."/action/sauverNouveau";
         return $url;
     }
 
     public function getJVDSaveModifURL()
     {
-        $url = "http://localhost/DmWeb/DM/exoMVCR/jvd.php/action/sauverModif";
+        $url = PATH."/action/sauverModif";
         return $url;
     }
 
@@ -153,6 +156,6 @@ class Router
     {
         $_SESSION['feedback'] = array($feedback, $isSuccess);
         session_write_close();
-        header("Location: http://localhost/DmWeb/DM/exoMVCR/" . htmlspecialchars_decode($url), true, 303);
+        header("Location: ".PATH. htmlspecialchars_decode($url), true, 303);
     }
 }

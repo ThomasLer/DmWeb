@@ -19,13 +19,13 @@ class View
         $this->title = "Accueil";
         $this->content = null;
         $this->menuLeft = array(
-            "accueil" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php","Accueil"),
-            "nouveau" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php/action/nouveau","Ajouter un JVD"),
-            "liste" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php/liste","Liste")
+            "accueil" => array("/accueil","Accueil"),
+            "nouveau" => array("/action/nouveau","Ajouter un JVD"),
+            "liste" => array("/liste","Liste")
         );
         $this->menuRight = array(
-            "connexion" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php/connexion","Connexion"),
-            "inscription" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php/nvCompte","Inscription")
+            "connexion" => array("/connexion","Connexion"),
+            "inscription" => array("/nvCompte","Inscription")
         );
         $this->feedback = $feedback;
     }
@@ -33,11 +33,11 @@ class View
     public function afficheMenu()
     {
         foreach ($this->menuLeft as $key => $lien) {
-            echo "<a href='".$lien[0]."' class='item'>".$lien[1]."</a>";
+            echo "<a href='".PATH.$lien[0]."' class='item'>".$lien[1]."</a>";
         }
         echo "<div class='right menu'>";
         foreach ($this->menuRight as $key => $lien) {
-            echo "<a href='".$lien[0]."' class='item'>".$lien[1]."</a>";
+            echo "<a href='".PATH.$lien[0]."' class='item'>".$lien[1]."</a>";
         }
         echo "</div>";
     }
@@ -144,7 +144,7 @@ class View
 
     public function displayJVDCreationSuccess($id)
     {
-        $this->router->POSTredirect("jvd.php/id/" . $id, "JVD ajouté!", 1);
+        $this->router->POSTredirect("/id/" . $id, "JVD ajouté!", 1);
     }
 
 
@@ -250,15 +250,15 @@ class View
 
     public function displayJVDCreationFailure()
     {
-        $this->router->POSTredirect("jvd.php/action/nouveau", "Impossible d'ajouter ce jeu, données invalides!", 0);
+        $this->router->POSTredirect("/action/nouveau", "Impossible d'ajouter ce jeu, données invalides!", 0);
     }
 
     public function retourAccueil($connexion)
     {
         if($connexion)
-            $this->router->POSTredirect("jvd.php", "Connexion effectuée", 1);
+            $this->router->POSTredirect("/accueil/", "Connexion effectuée", 1);
         else
-            $this->router->POSTredirect("jvd.php", "Déconnexion effectuée", 1);
+            $this->router->POSTredirect("/accueil/", "Déconnexion effectuée", 1);
     }
 
     public function makeErreurAjoutJVDPage()

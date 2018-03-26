@@ -20,12 +20,12 @@ class PrivateView extends View
         $this->title = "Accueil";
         $this->content = null;
         $this->menuLeft = array(
-            "accueil" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php","Accueil"),
-            "nouveau" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php/action/nouveau","Ajouter un JVD"),
-            "liste" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php/liste","Liste")
+            "accueil" => array("accueil","Accueil"),
+            "nouveau" => array("/action/nouveau","Ajouter un JVD"),
+            "liste" => array("/liste","Liste")
         );
         $this->menuRight = array(
-            "connexion" => array("http://localhost/DmWeb/DM/exoMVCR/jvd.php/connexion","Déconnexion")
+            "connexion" => array("/connexion","Déconnexion")
         );
         $this->feedback = $feedback;
         $this->account = $account;
