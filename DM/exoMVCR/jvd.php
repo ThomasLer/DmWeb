@@ -23,10 +23,10 @@ define('SERVERHOST',$_SERVER['HTTP_HOST']);
 define('PATH', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
 if(SERVERHOST == "localhost")
 {
-    define("HOST", "localhost");
-    define("USER", "root");
+    define("USERNAME", "root");
     define("PASSWORD", "");
-    define("DATABASE", "dmweb");
+    define("HOST", "localhost");
+    define("DB", "dmweb");
 }
 else if(SERVERHOST == "dev-21404260.users.info.unicaen.fr" or SERVERHOST == "dev-21402838.users.info.unicaen.fr")
 {
