@@ -21,7 +21,6 @@ require_once("Router.php");
  */
 define('SERVERHOST',$_SERVER['HTTP_HOST']);
 define('PATH', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
-echo PATH;
 if(SERVERHOST == "localhost")
 {
     define("HOST", "localhost");
