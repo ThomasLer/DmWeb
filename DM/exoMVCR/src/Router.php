@@ -38,15 +38,15 @@ class Router
             $uneVue = new PrivateView($this, $feedback, $_SESSION['user']);
         $unController = new Controller($uneVue, $JVDStorage, $accountStorageMySQL);
 
-        if(isset($_SERVER['PATH_INFO']))
+        if(key_exists('p',$_GET))
         {
-            $page = explode('/', $_SERVER['PATH_INFO']);
-            if (key_exists(1,$page))
+            $page = explode("/", $_GET['p']);
+            if (key_exists(0,$page))
             {
-                switch ($page[1]) {
+                switch ($page[0]) {
                     case "id":
-                        if (key_exists(2,$page))
-                            $unController->showInformation($page[2]);
+                        if (key_exists(1,$page))
+                            $unController->showInformation($page[1]);
                         else
                             $uneVue->makeUnknownActionPage();
                         break;
@@ -60,21 +60,21 @@ class Router
                         $unController->newCompte();
                         break;
                     case "suppId":
-                        if (key_exists(2,$page))
-                            $unController->suppJVD($page[2]);
+                        if (key_exists(1,$page))
+                            $unController->suppJVD($page[1]);
                         else
                             $uneVue->makeUnknownActionPage();
                         break;
                     case "modifId":
-                        if (key_exists(2,$page))
-                            $unController->recupJVDmodif($page[2]);
+                        if (key_exists(1,$page))
+                            $unController->recupJVDmodif($page[1]);
                         else
                             $uneVue->makeUnknownActionPage();
                         break;
                     case "action":
-                        if (isset($page[2]) and !empty($page[2])) {
+                        if (isset($page[1]) and !empty($page[1])) {
                             if($isConnected)
-                                switch ($page[2]) {
+                                switch ($page[1]) {
                                     case "sauverNouveau":
                                         $unController->saveNewJVD($_POST);
                                         break;
@@ -83,6 +83,17 @@ class Router
                                         break;
                                     case "sauverModif":
                                         $unController->sauverModif($_POST);
+                                        break;
+                                    default :
+                                        $uneVue->makeUnknownActionPage();
+                                        break;
+                                }
+                            else
+                                switch ($page[1]) {
+                                    case "sauverNouveau":
+                                    case "nouveau":
+                                    case "sauverModif":
+                                        $uneVue->makeNeedConnectionPage();
                                         break;
                                     default :
                                         $uneVue->makeUnknownActionPage();
@@ -118,37 +129,37 @@ class Router
 
     public function getJVDURL($id)
     {
-        $url = PATH."/jvd.php/id/" . $id;
+        $url = PATH."id/" . $id;
         return $url;
     }
 
     public function getJVDSupp($id)
     {
-        $url = PATH."/suppId/" . $id;
+        $url = PATH."suppId/" . $id;
         return $url;
     }
 
     public function getJVDmodif($id)
     {
-        $url = PATH."/modifId/" . $id;
+        $url = PATH."modifId/" . $id;
         return $url;
     }
 
     public function getJVDCreationURL()
     {
-        $url = PATH."/action/nouveau";
+        $url = PATH."action/nouveau";
         return $url;
     }
 
     public function getJVDSaveURL()
     {
-        $url = PATH."/action/sauverNouveau";
+        $url = PATH."action/sauverNouveau";
         return $url;
     }
 
     public function getJVDSaveModifURL()
     {
-        $url = PATH."/action/sauverModif";
+        $url = PATH."action/sauverModif";
         return $url;
     }
 

@@ -19,13 +19,13 @@ class View
         $this->title = "Accueil";
         $this->content = null;
         $this->menuLeft = array(
-            "accueil" => array("/accueil","Accueil"),
-            "nouveau" => array("/action/nouveau","Ajouter un JVD"),
-            "liste" => array("/liste","Liste")
+            "accueil" => array("accueil","Accueil"),
+            "nouveau" => array("action/nouveau","Ajouter un JVD"),
+            "liste" => array("liste","Liste")
         );
         $this->menuRight = array(
-            "connexion" => array("/connexion","Connexion"),
-            "inscription" => array("/nvCompte","Inscription")
+            "connexion" => array("connexion","Connexion"),
+            "inscription" => array("nvCompte","Inscription")
         );
         $this->feedback = $feedback;
     }
@@ -52,7 +52,7 @@ class View
     public function makeJVDPage(JVD $JVD)
     {
         $this->title = $JVD->getNom();
-        $this->content = "<img class='ui top aligned small image' src='".$JVD->getPhoto()."' onerror=\"this.src = './upload/imgDefault.png'\">";
+        $this->content = "<img class='ui top aligned small image' src='/dm-inf6c-2018/exoMVCR/".$JVD->getPhoto()."' onerror=\"this.src = '/dm-inf6c-2018/exoMVCR/upload/imgDefault.png'\">";
         $this->content .= "<span>".$JVD->getNom() . " est sortie en " . $JVD->getAnneeSortie() . ", c'est un JVD du genre " . $JVD->getGenre()."</span>";
 
     }
@@ -144,7 +144,7 @@ class View
 
     public function displayJVDCreationSuccess($id)
     {
-        $this->router->POSTredirect("/id/" . $id, "JVD ajouté!", 1);
+        $this->router->POSTredirect("id/" . $id, "JVD ajouté!", 1);
     }
 
 
@@ -250,15 +250,15 @@ class View
 
     public function displayJVDCreationFailure()
     {
-        $this->router->POSTredirect("/action/nouveau", "Impossible d'ajouter ce jeu, données invalides!", 0);
+        $this->router->POSTredirect("action/nouveau", "Impossible d'ajouter ce jeu, données invalides!", 0);
     }
 
     public function retourAccueil($connexion)
     {
         if($connexion)
-            $this->router->POSTredirect("/accueil/", "Connexion effectuée", 1);
+            $this->router->POSTredirect("accueil/", "Connexion effectuée", 1);
         else
-            $this->router->POSTredirect("/accueil/", "Déconnexion effectuée", 1);
+            $this->router->POSTredirect("accueil/", "Déconnexion effectuée", 1);
     }
 
     public function makeErreurAjoutJVDPage()
