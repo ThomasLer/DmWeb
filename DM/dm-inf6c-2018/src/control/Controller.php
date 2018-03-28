@@ -63,13 +63,20 @@ class Controller
     }
 
     public function suppJVD($id){
-
-       $this->JVDStorage->delete($id);
-            }
+        $jvdModif=$this->JVDStorage->read($id);
+        if($jvdModif->getPseudoUtilisateur() ==$_SESSION["user"]->getLogin()) {
+            $this->JVDStorage->delete($id);
+            $this->view->displaySupprJVDSuccess();
+        } else
+            $this->view->displaySupprJVDFailure();
+    }
 
     public function recupJVDmodif($id){
         $jvdModif=$this->JVDStorage->read($id);
-        $this->view->makeModifJvdPage($jvdModif);
+        if($jvdModif->getPseudoUtilisateur() ==$_SESSION["user"]->getLogin())
+            $this->view->makeModifJvdPage($jvdModif);
+        else
+            $this->view->displayModifJVDFailure();
 
     }
 

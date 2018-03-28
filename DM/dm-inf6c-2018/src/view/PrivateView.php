@@ -76,7 +76,7 @@ class PrivateView extends View
                                 <div class='field'>
                                     <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $jvd->getAnneeSortie() . "' min='1950' required/>
                                 </div>
-                                <img src='".$jvd->getPhoto()."' id='previsualisation' onerror=\"this.src = './upload/imgDefault.png'\" style='max-height: 300px'>
+                                <img src='".PATH.$jvd->getPhoto()."' id='previsualisation' onerror=\"this.src = '".PATH."./upload/imgDefault.png'\" style='max-height: 300px'>
                                 <div class='field'>
                                     <label for='file' class='ui icon button'>
                                         <i class='file icon'></i>

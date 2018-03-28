@@ -29,7 +29,7 @@ class JVDBuilder
         }
         else{
             $this->data=$data;
-            $this->data += [ "login" => $_SESSION["user"]->getLogin() ];
+            $this->data += [ self::PSEUDO_UTILISATEUR => $_SESSION["user"]->getLogin() ];
         }
         $this->error = null;
     }

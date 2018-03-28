@@ -53,7 +53,7 @@ class View
     public function makeJVDPage(JVD $JVD)
     {
         $this->title = $JVD->getNom();
-        $this->content = "<img class='ui top aligned small image' src='/dm-inf6c-2018/exoMVCR/".$JVD->getPhoto()."' onerror=\"this.src = '/dm-inf6c-2018/exoMVCR/upload/imgDefault.png'\">";
+        $this->content = "<img class='ui top aligned small image' src='".PATH.$JVD->getPhoto()."' onerror=\"this.src = '".PATH."upload/imgDefault.png'\">";
         $this->content .= "<span>".$JVD->getNom() . " est sortie en " . $JVD->getAnneeSortie() . ", c'est un JVD du genre " . $JVD->getGenre()."</span>";
 
     }
@@ -257,6 +257,8 @@ class View
         if ($JVDBuilder->getError())
             $this->content .= "<div class='ui compact red message'><p>" . $JVDBuilder->getError() . "</p></div>";
 
+        $valueAnnee = ($data[JVDBuilder::ANNEE_SORTIE_REF] == 0) ? "1950" : $data[JVDBuilder::ANNEE_SORTIE_REF];
+
         $this->content .= "<div class='ui middle aligned center aligned grid'>
                           <div class='column'>
                             <form class='ui large form' action='" . $this->router->getJVDSaveURL() . "' enctype='multipart/form-data' method='post'>
@@ -268,7 +270,8 @@ class View
                                     <input type='text' name='" . JVDBuilder::GENRE_REF . "' placeholder='Genre' value='" . $data[JVDBuilder::GENRE_REF] . "' required/>
                                 </div>
                                 <div class='field'>
-                                    <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $data[JVDBuilder::ANNEE_SORTIE_REF] . "' min='1950' required/>
+                                    <label>Date de sortie :</label>
+                                    <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $valueAnnee . "' min='1950' required/>
                                 </div>
                                 <img src='' id='previsualisation' style='max-height: 300px'>
                                 <div class='field'>
@@ -282,6 +285,21 @@ class View
                             </form>
                           </div>
                         </div>";
+    }
+
+    public function displayModifJVDFailure()
+    {
+        $this->router->POSTredirect("liste", "Vous ne pouvez pas modifier le jeu vidéo d'un autre utilisateur!", 0);
+    }
+
+    public function displaySupprJVDFailure()
+    {
+        $this->router->POSTredirect("liste", "Vous ne pouvez pas supprimer le jeu vidéo d'un autre utilisateur!", 0);
+    }
+
+    public function displaySupprJVDSuccess()
+    {
+        $this->router->POSTredirect("liste", "Jeu vidéo supprimé!", 1);
     }
 
     public function displayJVDCreationFailure()
