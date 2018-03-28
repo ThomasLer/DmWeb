@@ -29,27 +29,30 @@ class Controller
 
     public function saveNewJVD(array $data)
     {
-        $upload_dir="./upload/";
+        if(key_exists(JVDBuilder::NOM_REF, $_POST) and key_exists(JVDBuilder::GENRE_REF, $_POST) and key_exists(JVDBuilder::ANNEE_SORTIE_REF, $_POST)) {
+            $upload_dir = "./upload/";
 
-        if(key_exists(JVDBuilder::PHOTO_REF,$_FILES)){
-            $name=$_FILES[JVDBuilder::PHOTO_REF]['name'];
-            move_uploaded_file($_FILES[JVDBuilder::PHOTO_REF]['tmp_name'],$upload_dir."upload_".$name);
-        }
-        $data[JVDBuilder::PHOTO_REF]=$upload_dir."upload_".$name;
+            if (key_exists(JVDBuilder::PHOTO_REF, $_FILES)) {
+                $name = $_FILES[JVDBuilder::PHOTO_REF]['name'];
+                move_uploaded_file($_FILES[JVDBuilder::PHOTO_REF]['tmp_name'], $upload_dir . "upload_" . $name);
+            }
+            $data[JVDBuilder::PHOTO_REF] = $upload_dir . "upload_" . $name;
 
-        $JVDBuilder = new JVDBuilder($data);
+            $JVDBuilder = new JVDBuilder($data);
 
-        $JVDSave = $JVDBuilder->createJVD();
-        if ($JVDSave !== null) {
-            $id = $this->JVDStorage->create($JVDSave);
-            $this->view->displayJVDCreationSuccess($id);
-            unset($_SESSION['currentNewJVD']);
+            $JVDSave = $JVDBuilder->createJVD();
+            if ($JVDSave !== null) {
+                $id = $this->JVDStorage->create($JVDSave);
+                $this->view->displayJVDCreationSuccess($id);
+                unset($_SESSION['currentNewJVD']);
+            } else {
+                $this->view->displayJVDCreationFailure();
+                $_SESSION['currentNewJVD'] = $JVDBuilder;
+
+            }
         } else {
-            $this->view->displayJVDCreationFailure();
-            $_SESSION['currentNewJVD'] = $JVDBuilder;
-
+            $this->view->makeUnknownActionPage();
         }
-        //$this->showList();
     }
 
     public function newJVD()
