@@ -24,7 +24,7 @@ class JVDStorageMySQL implements JVDStorage
 
         $result = $req->fetch();
 
-        return new JVD($result['id'],$result['nom'],$result['genre'],$result['annee_sortie'],$result['photo']);
+        return new JVD($result['id'],$result['nom'],$result['genre'],$result['annee_sortie'],$result['photo'],$result['pseudo_utilisateur']);
     }
 
     public function readAll()
@@ -35,7 +35,7 @@ class JVDStorageMySQL implements JVDStorage
         $result = $req->fetchAll();
         $tabJvd=array();
         foreach($result as $jvd){
-            $nvJvd= new JVD($jvd['id'],$jvd['nom'],$jvd['genre'],$jvd['annee_sortie'],$jvd['photo']);
+            $nvJvd= new JVD($jvd['id'],$jvd['nom'],$jvd['genre'],$jvd['annee_sortie'],$jvd['photo'],$jvd['pseudo_utilisateur']);
             array_push($tabJvd,$nvJvd);
         }
 
@@ -45,12 +45,13 @@ class JVDStorageMySQL implements JVDStorage
     public function create(JVD $a)
     {
 
-        $req = $this->connection->prepare("INSERT INTO jvd (nom,genre,annee_sortie,photo) VALUES (:nom,:genre,:annee_sortie,:photo)");
+        $req = $this->connection->prepare("INSERT INTO jvd (nom,genre,annee_sortie,photo,pseudo_utilisateur) VALUES (:nom,:genre,:annee_sortie,:photo,:pseudo_utilisateur)");
         $req->execute(array(
             "nom"=>$a->getNom(),
             "genre"=>$a->getGenre(),
             "annee_sortie"=>$a->getAnneeSortie(),
-            "photo"=>$a->getPhoto()
+            "photo"=>$a->getPhoto(),
+            "pseudo_utilisateur"=>$a->getPseudoUtilisateur()
         ));
 
         $rep=$this->connection->prepare("Select MAX(id) as id FROM jvd");
