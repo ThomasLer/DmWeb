@@ -22,7 +22,8 @@ class PrivateView extends View
         $this->menuLeft = array(
             "accueil" => array("accueil","Accueil"),
             "nouveau" => array("action/nouveau","Ajouter un JVD"),
-            "liste" => array("liste","Liste")
+            "liste" => array("liste","Liste"),
+            "a_propos" => array("a_propos","A Propos")
         );
         $this->menuRight = array(
             "connexion" => array("connexion","Déconnexion")
