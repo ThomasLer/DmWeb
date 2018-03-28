@@ -38,6 +38,7 @@ class Controller
         $data[JVDBuilder::PHOTO_REF]=$upload_dir."upload_".$name;
 
         $JVDBuilder = new JVDBuilder($data);
+
         $JVDSave = $JVDBuilder->createJVD();
         if ($JVDSave !== null) {
             $id = $this->JVDStorage->create($JVDSave);

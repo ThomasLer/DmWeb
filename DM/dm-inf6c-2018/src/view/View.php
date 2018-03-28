@@ -270,7 +270,7 @@ class View
                                 <div class='field'>
                                     <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $data[JVDBuilder::ANNEE_SORTIE_REF] . "' min='1950' required/>
                                 </div>
-                                <input type='hidden' name'".$JVDBuilder::PSEUDO_UTILISATEUR."' value='".$_SESSION['user']."'>
+                                <input type='hidden' name'". $JVDBuilder::PSEUDO_UTILISATEUR ."' value='".$_SESSION['user']->getLogin()."'>
                                 <img src='' id='previsualisation' style='max-height: 300px'>
                                 <div class='field'>
                                     <label for='file' class='ui icon button'>
@@ -285,7 +285,7 @@ class View
                         </div>";
     }
 
-    public function displayJVDCreationFailure()
+    public function displayJVDCreationFailure(array $data)
     {
         $this->router->POSTredirect("action/nouveau", "Impossible d'ajouter ce jeu, données invalides!", 0);
     }
@@ -303,6 +303,7 @@ class View
         $this->title = "Erreur ajout JVD ";
         $this->content = "Vérifier les données saisies";
     }
+
 
     public function render()
     {
