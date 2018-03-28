@@ -37,15 +37,14 @@ class AccountStorageMySQL implements AccountStorage
         }
     }
 
-    function verifNvCompte($compte){
+    function isValidAccount($compte){
         $req = $this->connection->prepare("SELECT * FROM comptes WHERE pseudo=:pseudo ");
         $req->execute(array(':pseudo' => $compte->getLogin()));
 
         if($result = $req->fetch()){
             return false;
         }else{
-            $this->ajoutCompte($compte);
-            $_SESSION['user']=$compte;
+            return true;
         }
 
     }

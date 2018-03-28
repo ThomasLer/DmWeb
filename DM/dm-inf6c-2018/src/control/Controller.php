@@ -98,9 +98,14 @@ class Controller
 
     public function newCompte(){
         if(key_exists('pseudoCmp',$_POST) && key_exists('passCmp',$_POST) && key_exists('nomCmp',$_POST)){
-           $ajout=$this->accountStorageMySQL->verifNvCompte(new Account($_POST['nomCmp'],$_POST['pseudoCmp'],$_POST['passCmp'], "user"));
-            if($ajout==false){
-                $this->view->makeCreateAccountFormPage();
+            $compte = new Account($_POST['nomCmp'],$_POST['pseudoCmp'],$_POST['passCmp'], "user");
+            $isValidAccount = $this->accountStorageMySQL->isValidAccount($compte);
+            if($isValidAccount){
+                $this->accountStorageMySQL->ajoutCompte($compte);
+                $_SESSION['user'] = $compte;
+                $this->view->displayAccountCreationSuccess();
+            } else {
+                $this->view->displayAccountAlreadyExist();
             }
         }
         else{

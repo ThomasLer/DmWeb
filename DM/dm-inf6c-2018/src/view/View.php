@@ -100,7 +100,7 @@ class View
     }
 
     public function makeNeedConnectionPage(){
-        $this->title="Page inaccessible";
+        $this->title="Accès interdit";
         $this->content="Veuillez vous connecter pour accéder à cette page";
     }
 
@@ -143,6 +143,16 @@ class View
 
     }
 
+    public function displayAccountCreationSuccess()
+    {
+        $this->router->POSTredirect("accueil", "Compte créé!", 1);
+    }
+
+    public function displayAccountAlreadyExist()
+    {
+        $this->router->POSTredirect("nvCompte", "Un compte avec les mêmes identifiants existe déja !", 0);
+    }
+
     public function displayJVDCreationSuccess($id)
     {
         $this->router->POSTredirect("id/" . $id, "JVD ajouté!", 1);
@@ -169,16 +179,18 @@ class View
                     </form>
                 
                     <div class='ui message'>
-                      Nouveau ? <a href='jvd.php?nvCompte'>S'inscrire</a>
+                      Nouveau ? <a href='".PATH."nvCompte'>S'inscrire</a>
                     </div>
                   </div>
                 </div>";
     }
 
-    public function makeCreateAccountFormPage()
+    public function makeCreateAccountFormPage($erreur = null)
     {
         $this->title = " Inscription";
-        $this->content = "<div class='ui middle aligned center aligned grid'>
+        $this->content =
+            $erreur . " \n
+                    <div class='ui middle aligned center aligned grid'>
                           <div class='column'>
                             <form class='ui large form' method='post' action='" . ($_SERVER['PHP_SELF']) . "'>
                               <div class='ui stacked segment'>
@@ -196,7 +208,7 @@ class View
                             </form>
                         
                             <div class='ui message'>
-                              Déja inscrit ? <a href='jvd.php?connexion'>Se connecter</a>
+                              Déja inscrit ? <a href='".PATH."connexion'>Se connecter</a>
                             </div>
                           </div>
                         </div>";
@@ -234,7 +246,6 @@ class View
                 <li> Prévisualiation image lors de l'ajout ou modification d'un jeu vidéo (Javascript).</li>
                 <li> Modification du fichier .htaccess afin de pouvoir utiliser un système de page plus intuitif (/dm-inf6c-2018/action/nouveau au lieu de /dm-inf6c-2018/index.php/action/nouveau.</li>
             </ul>";
-
     }
 
 
