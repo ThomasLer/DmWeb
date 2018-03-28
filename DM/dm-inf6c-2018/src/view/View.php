@@ -285,7 +285,7 @@ class View
                         </div>";
     }
 
-    public function displayJVDCreationFailure(array $data)
+    public function displayJVDCreationFailure()
     {
         $this->router->POSTredirect("action/nouveau", "Impossible d'ajouter ce jeu, données invalides!", 0);
     }

@@ -45,7 +45,7 @@ class Controller
             $this->view->displayJVDCreationSuccess($id);
             unset($_SESSION['currentNewJVD']);
         } else {
-            $this->view->displayJVDCreationFailure($data);
+            $this->view->displayJVDCreationFailure();
             $_SESSION['currentNewJVD'] = $JVDBuilder;
 
         }
