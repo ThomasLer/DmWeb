@@ -270,7 +270,6 @@ class View
                                 <div class='field'>
                                     <input type='number' name='" . JVDBuilder::ANNEE_SORTIE_REF . "' value='" . $data[JVDBuilder::ANNEE_SORTIE_REF] . "' min='1950' required/>
                                 </div>
-                                <input type='hidden' name'". $JVDBuilder::PSEUDO_UTILISATEUR ."' value='".$_SESSION['user']->getLogin()."'>
                                 <img src='' id='previsualisation' style='max-height: 300px'>
                                 <div class='field'>
                                     <label for='file' class='ui icon button'>
