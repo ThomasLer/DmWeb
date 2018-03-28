@@ -25,7 +25,7 @@ private $statut;
         $this->nom = $nom;
         $this->login = $login;
         $this->password = $password;
-        $this->statut = $statut;
+        $this->statut = "admin";
     }
 
     /**
