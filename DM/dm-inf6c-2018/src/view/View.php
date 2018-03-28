@@ -88,7 +88,7 @@ class View
             $photoJVD = $JVD->getPhoto();
             $genreJVD = $JVD->getGenre();
             $this->content .= "<div class=\"item\">
-                                <img class=\"ui avatar image\" src=\"$photoJVD\">
+                                <img class=\"ui avatar image\" src=\"$photoJVD\" onerror=\"this.src = '".PATH."./upload/imgDefault.png'\" style='max-height: 300px'>
                                 <div class=\"content\">
                                     <a class=\"header\" href='" . $this->router->getJVDURL($idJVD) . "'>".$nomJVD."</a>
                                     <div class=\"description\">$genreJVD</div>
@@ -305,6 +305,10 @@ class View
     public function displayJVDCreationFailure()
     {
         $this->router->POSTredirect("action/nouveau", "Impossible d'ajouter ce jeu, données invalides!", 0);
+    }
+    public function displayJVDModifiSuccess()
+    {
+        $this->router->POSTredirect("liste", "Jeu vidéo modifié!", 1);
     }
 
     public function retourAccueil($connexion)
