@@ -14,7 +14,8 @@ class JVDBuilder
     const GENRE_REF ="genre";
     const ANNEE_SORTIE_REF="annee_sortie";
     const PHOTO_REF="photo";
-//coucou
+    const PSEUDO_UTILISATEUR="pseudo_utilisateur";
+
     /**
      * AnimalBuilder constructor.
      * @param $data
@@ -24,7 +25,7 @@ class JVDBuilder
     public function __construct($data=null)
     {
         if ($data==null){
-            $this->data = array(self::NOM_REF=>"",self::GENRE_REF=>"",self::ANNEE_SORTIE_REF=>0,self::PHOTO_REF=>null);
+            $this->data = array(self::NOM_REF=>"",self::GENRE_REF=>"",self::ANNEE_SORTIE_REF=>0,self::PHOTO_REF=>null,self::PSEUDO_UTILISATEUR=>null);
         }
         else{
             $this->data=$data;
@@ -50,9 +51,9 @@ class JVDBuilder
 
     public function createJVD(){
 
-        if (key_exists(self::NOM_REF, $this->data) && key_exists(self::GENRE_REF, $this->data) && key_exists(self::ANNEE_SORTIE_REF, $this->data) && (key_exists(self::PHOTO_REF, $this->data))) {
+        if (key_exists(self::NOM_REF, $this->data) && key_exists(self::GENRE_REF, $this->data) && key_exists(self::ANNEE_SORTIE_REF, $this->data) && (key_exists(self::PHOTO_REF, $this->data)) && (key_exists(self::PSEUDO_UTILISATEUR, $this->data))) {
             if($this->isValid()){
-                $nvJVD = new JVD(null,$this->data[self::NOM_REF], $this->data[self::GENRE_REF], $this->data[self::ANNEE_SORTIE_REF],$this->data[self::PHOTO_REF]);
+                $nvJVD = new JVD(null,$this->data[self::NOM_REF], $this->data[self::GENRE_REF], $this->data[self::ANNEE_SORTIE_REF],$this->data[self::PHOTO_REF],$this->data[self::PSEUDO_UTILISATEUR]);
                 return $nvJVD;
             }
             else{

@@ -7,6 +7,7 @@ class JVD
     private $genre;
     private $annee_sortie;
     private $photo;
+    private $pseudo_utilisateur;
 
     /**
      * Animal constructor.
@@ -14,13 +15,14 @@ class JVD
      * @param $genre
      * @param $annee_sortie
      */
-    public function __construct($id, $nom, $genre, $annee_sortie,$photo=null)
+    public function __construct($id, $nom, $genre, $annee_sortie, $photo=null, $pseudo_utilisateur)
     {
         $this->id=$id;
         $this->nom = $nom;
         $this->genre = $genre;
         $this->annee_sortie = $annee_sortie;
-        $this->photo=$photo;
+        $this->photo = $photo;
+        $this->pseudo_utilisateur = $pseudo_utilisateur;
     }
 
     /**
@@ -30,8 +32,6 @@ class JVD
     {
         return $this->id;
     }
-
-//coucou
 
     /**
      * @return mixed
@@ -64,6 +64,12 @@ class JVD
     {
         return $this->photo;
     }
+
+    public function getPseudoUtilisateur()
+    {
+        return $this->pseudo_utilisateur;
+    }
+
 
 
 
