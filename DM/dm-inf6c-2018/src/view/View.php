@@ -21,7 +21,8 @@ class View
         $this->menuLeft = array(
             "accueil" => array("accueil","Accueil"),
             "nouveau" => array("action/nouveau","Ajouter un JVD"),
-            "liste" => array("liste","Liste")
+            "liste" => array("liste","Liste"),
+            "a_propos" => array("a_propos","A Propos")
         );
         $this->menuRight = array(
             "connexion" => array("connexion","Connexion"),
@@ -212,6 +213,30 @@ class View
                 </form>";
 
     }
+
+    public function makeAPropos()
+    {
+        $this->title = " A Propos";
+        $this->content = "
+            <h3>Membres du binôme</h3>
+            <ul>
+                <li> 21402838</li>
+                <li> 21404260</li>
+            </ul>
+            <h3>Présentation</h3>
+            <p>
+                Nous avons utilisé le framework CSS Semantic UI afin d'avoir un site sobre et responsive. Nous avons choisi Semantic UI car nous voulions changer du très connu Framework Bootstrap.<br>
+                Pour la modélisation et le code, nous avons gardé les mêmes schémas que ceux vu lors du TP.<br>
+                
+            </p>
+            <h3>Bonus</h3>
+            <ul>
+                <li> Prévisualiation image lors de l'ajout ou modification d'un jeu vidéo (Javascript).</li>
+                <li> Modification du fichier .htaccess afin de pouvoir utiliser un système de page plus intuitif (/dm-inf6c-2018/action/nouveau au lieu de /dm-inf6c-2018/index.php/action/nouveau.</li>
+            </ul>";
+
+    }
+
 
     public function makeJVDCreationPage(JVDBuilder $JVDBuilder)
     {

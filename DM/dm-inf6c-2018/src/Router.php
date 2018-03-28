@@ -56,6 +56,9 @@ class Router
                     case "connexion":
                         $unController->gestionConnexionDeconnexion();
                         break;
+                    case "a_propos":
+                        $uneVue->makeAPropos();
+                        break;
                     case "nvCompte":
                         $unController->newCompte();
                         break;
